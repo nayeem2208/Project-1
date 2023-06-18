@@ -1,8 +1,7 @@
 # dependencies
 node_modules
 
-public/images
-public/img
+
 
 **/.DS_Store
 **/_DS_Store
