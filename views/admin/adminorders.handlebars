@@ -1,0 +1,184 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{title}}</title>
+  <script type="text/javascript" charset="utf8"
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/dataTables.bootstrap4.min.css">
+</head>
+<style>
+  .d-flex.justify-content-center {
+    display: flex;
+    justify-content: center;
+  }
+
+  .form-select {
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #495057;
+    width: 200px;
+    font-size: 14px;
+    line-height: 1.5;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+
+  .form-select:focus {
+    outline: none;
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+   #productsTable tbody tr:hover {
+     background-color: #94929638;
+      cursor: pointer;
+    }
+
+    #productsTable tbody tr:hover td {
+      color: #ffd900;
+    }
+      body,
+    th,
+    td,
+    a,
+    .btn {
+      color: rgb(238, 233, 233);
+    }
+      table.table {
+        border-color: rgba(255, 255, 255, 0.2); /* Adjust the opacity value (0.5 in this case) to your preference */
+    }
+    
+</style>
+
+<body style="background-color: rgb(71, 66, 66);">
+  {{> adminHeader}}
+  <div style="height: 13vh;"></div>
+  <div class="row d-flex col-md-12">
+
+    {{>adminsidebar currentPage='Orders'}}
+
+    <div class="col-10">
+      <div class=" mt-5">
+
+        <table class="table" id="productsTable">
+          <thead>
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col">Date</th>
+              <th scope="col">Username</th>
+              <th scope="col">Amount</th>
+              <th scope="col">payment</th>
+              <th scope="col">Status</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each order}}
+            <tr>
+              <td scope="col">{{inc @index}}</td>
+              <td scope="col">{{formatDate this.dateOrdered}}</td>
+              <td scope="col">{{this.username}}</td>
+              <td scope="col"><i>₹{{this.total}}</i></td>
+              <td scope="col">{{this.paymentmethord}}</td>
+              <td scope="col">
+
+                {{#if (or (eq status 'return') (eq status 'returned') (eq status 'cancelled'))}}
+                <span class="badge bg-danger" style="width: 5vw;">{{this.status}}</span>
+                {{else if (eq status 'delivered')}}
+                <span class="badge bg-success" style="width: 5vw;">{{this.status}}</span>
+                {{else}}
+                <span class="badge bg-primary" style="width: 5vw;">{{this.status}}</span>
+                {{/if}}
+              </td>
+              <td scope="col"><a class="btn btn " href="/admin/viewOrder?id={{this._id}}"
+                  style="background-color: darkolivegreen;color: rgb(255, 255, 255);">view</a></td>
+              <td scope="col"><a class="btn btn orderStatus" data-bs-toggle="modal" data-bs-target="#exampleModalCenter"
+                  data-bs-orderid="{{this._id}}"
+                  style="background-color:rgb(39, 129, 133) ;color: rgb(255, 255, 255);">status</a></td>
+
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  {{>adminfooter}}
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #393a3a;color: #f8f9fa;">
+          <h5 class="modal-title" id="exampleModalLongTitle">Change Status</h5>
+          <button type="button" class="close btn btn " style="color: #f8f9fa;"
+            data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="/admin/editStatus" method="post">
+            <input type="text" id="orderDetails" name="orderid" hidden>
+            <div class="d-flex justify-content-center">
+              <select name="statusSelect" id="statusSelect" class="form-select">
+                <option value="shipping">Shipped</option>
+                <option value="pending">Pending</option>
+                <option value="delivered">Delivered</option>
+                <option value="returned">Returned</option>
+              </select>
+            </div>
+
+
+        </div>
+        <div class="modal-footer" >
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="font-size: small;">Close</button>
+          <button type="submit" class="btn btn" style="background-color: rgb(3, 134, 106);color: #fff;font-size: small;">Save
+            changes</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.2/js/dataTables.bootstrap4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
+  <script>
+
+    $(function () {
+      $('#productsTable').DataTable();
+    });
+    var orderStatus = document.querySelectorAll('.orderStatus');
+
+    // Add a click event listener to each button
+    orderStatus.forEach(function (status) {
+      status.addEventListener('click', function () {
+        // Get the order ID from the status's data attribute
+        var orderID = status.getAttribute('data-bs-orderid');
+        console.log(orderID);
+        // Access the order ID in the modal
+        var orderDetailsElement = document.getElementById('orderDetails');
+        orderDetailsElement.value = orderID;
+      });
+    });
+
+  </script>
+</body>
+
+</html>

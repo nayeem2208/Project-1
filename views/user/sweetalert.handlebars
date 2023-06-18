@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+     document.addEventListener('DOMContentLoaded', function() {
+    // Show the SweetAlert
+    Swal.fire({
+      title: 'Order Confirmed',
+      text: 'Congratulations!!Your order has been placed.',
+      icon: 'success',
+      confirmButtonText: 'OK'
+    }).then((result) => {
+      // Check if the OK button was clicked
+      if (result.isConfirmed) {
+        // Redirect to the home page
+        window.location.href = '/getorders';
+      }
+    });
+  });
+</script>
+</body>
+</html>

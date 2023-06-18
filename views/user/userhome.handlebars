@@ -1,0 +1,251 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{title}}</title>
+  <link rel="stylesheet" href="/stylesheets/home1.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous" />
+  <style>
+    body::after {
+      content: "";
+      background-image: url(/public/images/dress1.jpg);
+      background-size: cover;
+      background-position: center;
+      opacity: 0.5;
+      /* Adjust the opacity value as per your preference */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+   #preloader {
+            background: #ffffff url(/public/images/c1bcd8a8c945b53da6b29f10a2a553c0.gif) no-repeat center center;
+            background-size: 30%;
+            height: 100vh;
+            width: 100%;
+            position: fixed;
+            z-index: 100;
+        }
+  </style>
+</head>
+
+<body>
+
+  <div id="preloader"></div>
+  <!-- Navbar -->
+
+  <!-- carousel -->
+  {{>header}}
+  <div style="height: 14vh;"></div>
+  <div class="header-info">
+    <div class="container-fluid">
+      <div class="row" style="background-color: #363636;">
+        <div class="col-md-4">
+          <div class="header-item d-flex justify-content-center justify-content-md-start">
+            <img src="/public/images/icons/delivery.png" class="mt-2 me-2" alt="" style="height: 3vh;">
+            <p style="color: rgba(255, 255, 255, 0.616);" class="mt-1 me-2">Quick shipping </p>
+          </div>
+        </div>
+        <div class="col-md-4 text-center mt-3 mt-md-0">
+          <div class="header-item d-flex justify-content-center">
+            <img src="/public/images/icons/voucher.png" class="mt-2 me-2" alt="" style="height: 3vh;">
+            <p style="color: rgba(255, 255, 255, 0.616);" class="mt-1 me-2"> 24x7 support</p>
+          </div>
+        </div>
+        <div class="col-md-4 text-right mt-3 mt-md-0">
+          <div class="header-item d-flex justify-content-center justify-content-md-end">
+            <img src="/public/images/icons/sales.png" alt="" class="mt-2 me-2" style="height: 3vh;">
+            <p style="color: rgba(255, 255, 255, 0.616);" class="mt-1 me-2">30% off on dresses. Use code: 30OFF</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div style="background-image: url(/public/images/nike1.jpg); background-size: cover; height:100vh;">
+      <p class="container p-5 justify-content-center"><span
+          style="font-size: 13vh;font-family:  sans-serif;color: rgb(255, 255, 255);">Fine Bonito</span><br><span
+          class="ms-2" style="color: rgba(255, 255, 255, 0.7);">Welcomes you to the world of fashion</span></p>
+
+      {{!-- <img src="/public/images/1.jpg" alt="" style="width: 100%; ;"> --}}
+    </div>
+  </div>
+
+  <!--Main layout-->
+  <main>
+    <div class="container">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-dark mt-3 mb-5 shadow p-2" style="background-color:#404c52">
+        <!-- Container wrapper -->
+        <div class="container-fluid">
+
+          <!-- Navbar brand -->
+          <a class="navbar-brand" href="#">Categories:</a>
+
+          <!-- Toggle button -->
+          <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+            data-mdb-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent2" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+          </button>
+
+          <!-- Collapsible wrapper -->
+          <div class="collapse navbar-collapse" id="navbarSupportedContent2">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+              <!-- Link -->
+              <li class="nav-item acitve">
+                <a class="nav-link text-white" href="/getallproducts">All</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="/getshirtpage">Shirts</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="/getJeanspage">Jeans</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="/getShoespage">Shoes</a>
+              </li>
+
+            </ul>
+
+            <!-- Search -->
+
+
+          </div>
+        </div>
+        <!-- Container wrapper -->
+      </nav>
+      <!-- Navbar -->
+
+      <!-- Products -->
+      <section>
+        <div class="text-center">
+          <div class="row d-flex justify-content-center">
+
+            <div class="col-lg-3 col-md-6 mb-4">
+              <div class="card">
+                <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
+                  data-mdb-ripple-color="light">
+                  <a href="/getshirtpage">
+                    <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg" class="w-100" />
+                    <div class="mask">
+                      <div class="d-flex justify-content-start align-items-end h-100">
+
+                      </div>
+                    </div>
+                    <div class="hover-overlay">
+                      <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                    </div>
+                  </a>
+                </div>
+                <div class="card-body">
+                  <a href="/getshirtpage" class="text-reset" style="text-decoration: none;">
+                    <h5 class="card-title mb-2">Shirts</h5>
+                  </a>
+
+
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4">
+              <div class="card">
+                <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
+                  data-mdb-ripple-color="light">
+                  <a href="/getJeanspage">
+                    <img src="/public/images/Joe's Jeans - Product Photography by Brianna Levay.gif" class="w-100" /
+                      style="height: 49.5vh;">
+                    <div class="mask">
+                      <div class="d-flex justify-content-start align-items-end h-100">
+
+                      </div>
+                    </div>
+                    <div class="hover-overlay">
+                      <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                    </div>
+                  </a>
+                </div>
+                <div class="card-body">
+                  <a href="/getJeanspage" class="text-reset" style="text-decoration: none;">
+                    <h5 class="card-title mb-2">Jeans </h5>
+                  </a>
+
+
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4">
+              <div class="card">
+                <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
+                  data-mdb-ripple-color="light">
+                  <a href="/getShoespage">
+                    <img src="/public/images/Nike Blazer Mid ’77 VNTG.jpeg" class="w-100" / style="height: 49.5vh;">
+                    <div class="mask">
+                      <div class="d-flex justify-content-start align-items-end h-100">
+
+                      </div>
+                    </div>
+                    <div class="hover-overlay">
+                      <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                    </div>
+                  </a>
+                </div>
+                <div class="card-body">
+                  <a href="/getShoespage" class="text-reset" style="text-decoration: none;">
+                    <h5 class="card-title mb-2">Shoes</h5>
+                  </a>
+
+
+                </div>
+              </div>
+            </div>
+
+
+
+
+          </div>
+      </section>
+
+
+    </div>
+  </main>
+  <section class="container mb-5 mt-5">
+    <div class="row" style="background-color: rgb(255, 255, 255);">
+      <div class="col-md-6">
+        <div class="d-flex justify-content-center align-items-center">
+          <img src="/public/images/Golf le Fleur UNO Shoe.jpeg" alt=""
+            style="max-height: 100vh; width: auto; transition: transform 0.5s ease;">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <img src="/public/images/jpeg.jpeg" alt=""
+          style="max-height: 150vh; width: auto; margin-left: -80px; transition: transform 0.5s ease;">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 d-flex justify-content-center">
+        <a href="/getallproducts">
+          <img src="/public/images/giphy1.gif" alt=""
+            style="max-width: 50%; height: auto; margin-top: -300px; transition: transform 0.5s ease;">
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!--Main layout-->
+  {{>userfooter}}
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/911ceacc93.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

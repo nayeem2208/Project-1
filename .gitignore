@@ -1,0 +1,13 @@
+# dependencies
+node_modules
+
+public/images
+public/img
+
+**/.DS_Store
+**/_DS_Store
+/**/*.ttf
+/**/*.woff
+/**/*.woff2
+/**/*.eot
+/**/*.scss

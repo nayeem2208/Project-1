@@ -1,0 +1,62 @@
+
+<nav style="background-color:#252829;" class="navbar navbar-expand-lg fixed-top">
+  <img src="/public/images/left.png" onclick="history.back()" alt="" class="ms-2" style="opacity: 0.7; margin-top: -1.8vh; height: 3vh">
+  
+  
+  <p style=" font-size: 5vh;
+  background: -webkit-linear-gradient(#ffffff, #ffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;font-family: sans-serif;" class="container mt-2 ">Fine Bonito</p>
+  <button class="navbar-toggler float-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse float-right me-4" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/homeLoad" style="color: rgb(255, 255, 255);font-family: sans-serif;"><img src="/public/images/homewhite.png" class="me-2" alt=""></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" style="color: rgb(255, 255, 255);font-family: sans-serif;"><img src="/public/images/heartwhite.png" style="height: 4vh;" class="me-2" alt=""></a>
+      </li>
+      {{!-- <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li> --}}
+      <li class="nav-item">
+        <a class="nav-link" href="/addtocart" style="color: rgb(255, 255, 255);font-family: sans-serif;"><img src="/public/images/shopping-cartwhite.png" style="height: 4vh; "  class="me-2" alt=""></a>
+      </li>
+      {{!-- <li class="nav-item">
+        
+        <a class="nav-link" href="/userprofile?id={{this._id}}" style="color: rgb(255, 255, 255);font-family: sans-serif;"><img src="/public/images/userwhite.png" style="height: 4vh;" class="me-2" alt=""></a>
+      </li> --}}
+
+      <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: rgb(73, 73, 73);font-family: sans-serif;">
+    <img src="/public/images/userwhite.png" style="height: 4vh;" class="me-2" alt=""> 
+  </a>
+  <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color:#404c52 ; ">
+    <a class="dropdown-item" href="/userprofile?id={{this._id}}" style="color: #ffffff;">Profile</a>
+    <a class="dropdown-item" href="/getorders?id={{this._id}}" style="color: #ffffff;">Orders</a>
+    <a class="dropdown-item" href="" style="color: #ffffff;">Settings</a>
+    <a class="dropdown-item" href="" style="color: #ffffff;">Help</a>
+
+
+  </div>
+</li>
+
+    </ul>
+    <form class="form-inline my-2 my-lg-0" method="post" action="/logout">
+      {{!-- <a href="/logout"class="btn btn-outline-success my-2 my-sm-0" type="submit" >Logout</a> --}}
+      <button class="btn btn-outline-info my-2 my-sm-0" type="submit" style="font-family: sans-serif;">Logout</button>
+    </form>
+  </div>
+</nav>
+<script src="https://kit.fontawesome.com/911ceacc93.js" crossorigin="anonymous"></script>

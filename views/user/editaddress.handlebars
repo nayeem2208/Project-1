@@ -1,0 +1,202 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .form-container {
+            flex: 1;
+            padding-right: 20px;
+            max-width: 100%;
+        }
+
+        .img-container {
+            flex: 1;
+            max-width: 100%;
+            text-align: center;
+        }
+
+        .img-container img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .form-container,
+            .img-container {
+                padding-right: 0;
+            }
+        }
+
+        .custom-select {
+            background-color: #f2f2f2, 0.7;
+
+            border: none;
+            border-radius: 4px;
+            color: #555;
+            padding: 8px;
+            width: 100%;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+        }
+
+        input {
+            opacity: 0.5;
+        }
+        #preloader {
+            background: #ffffff url(/public/images/c1bcd8a8c945b53da6b29f10a2a553c0.gif) no-repeat center center;
+            background-size: 30%;
+            height: 100vh;
+            width: 100%;
+            position: fixed;
+            z-index: 100;
+        }
+
+    </style>
+</head>
+
+<body style="background-image: url(/public/images/jean-philippe-delberghe-75xPHEQBmvA-unsplash.jpg);">
+ <div id="preloader"></div>
+    {{>header}}
+    <div style="height: 14vh;"></div>
+
+    <div class="container mt-5 mb-4">
+        <div class="form-container ">
+            <h1 class="mb-3" style="color: #f2f2f2;display: flex; justify-content: center">Add Address</h1>
+
+            <form action="/add-address" method="post">
+                <div class="form-group">
+                    <label for="house-name">House Name</label>
+                    <input type="text" class="form-control" id="houseName" name="houseName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" class="form-control" id="location" name="location" required>
+                </div>
+                <div class="form-group">
+                    <label for="landmark">Landmark</label>
+                    <input type="text" class="form-control" id="landmark" name="landmark" required>
+                </div>
+                <div class="form-group">
+                    <label for="state">District</label>
+                    <input type="text" class="form-control" id="state" name="district" required>
+                </div>
+                <div class="form-group mb-4 mt-4">
+                    <select name="state" class="custom-select">
+                        {{#each states}}
+                        <option value="{{this}}">{{this}}</option>
+                        {{/each}}
+                    </select>
+
+                </div>
+
+                <div class="form-group mb-4 mt-4">
+                    <select name="countries" class="custom-select">
+                        {{#each countries}}
+                        <option value="{{this}}">{{this}}</option>
+                        {{/each}}
+                    </select>
+
+                </div>
+                <div class="form-group mb-4 mt-4">
+                    <select name="type" class="custom-select">
+                        <option value="Residence">Residence</option>
+                        <option value="Office">Office</option>
+                    </select>
+
+                </div>
+                <div class="form-group mb-5">
+                    <label for="pincode">Pincode</label>
+                    <input type="text" class="form-control" id="pincode" name="pincode" required>
+                </div>
+                <div class="form-group mb-4 mt-4" style="display: flex; justify-content: center;">
+                    <button type="submit" class="btn "
+                        style="width: 20rem;background-color: rgb(221, 164, 19); color: #ffffff;">Submit</button>
+                </div>
+
+            </form>
+        </div>
+        <div class="img-container mt-4">
+            <img src="/public/images/shoesoct7.jpg" alt="" style="border-radius: 5%;">
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/911ceacc93.js" crossorigin="anonymous"></script>
+
+
+
+    {{>userfooter}}
+</body>
+<script>
+    document.querySelector('form').addEventListener('submit', function (event) {
+        event.preventDefault()
+
+        var houseName: document.querySelector('input[name="houseName"]').value;
+        var location: document.querySelector('input[name="location"]').value;
+        var landmark: document.querySelector('input[name="landmark"]').value;
+        var district: document.querySelector('input[name="district"]').value;
+        var state: document.querySelector('input[name="state"]').value;
+        var countries: document.querySelector('input[name="countries"]').value;
+        var type: document.querySelector('input[name="type"]').value;
+        var pincode: document.querySelector('input[name="pincode"]').value;
+
+        var address = {
+            houseName: houseName,
+            location: location,
+            landmark: landmark,
+            district: district,
+            state: state,
+            countries: countries,
+            type: type,
+            pincode: pincode
+        }
+
+        fetch('/submitForm', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(address)
+        })
+            .then(function (response) {
+                // Handle the response from the server
+                // Redirect or display a success message if needed
+            })
+            .catch(function (error) {
+                // Handle any errors that occur during the request
+            })
+
+
+
+    })
+
+
+</script>
+ <script>
+    var loader = document.getElementById("preloader")
+    window.addEventListener('load', function () {
+        loader.style.display = "none"
+    })
+</script>
+
+</html>

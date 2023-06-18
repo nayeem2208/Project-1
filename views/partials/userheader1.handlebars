@@ -1,0 +1,73 @@
+<style>
+    /* Add this style block to your existing CSS */
+    @media (max-width: 767px) {
+        .needle-image {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            display: none;
+        }
+    }
+</style>
+<header class="header_area sticky-header" style="height: 10vh;">
+    <div class="main_menu">
+        <nav class="navbar navbar-expand-lg navbar-light main_box">
+            <img src="/public/images/back-button.png" onclick="history.back()" alt="" class="me-5 ms-3"
+                style="opacity: 0.7; height: 3vh; margin-left: 5vh;">
+            <div class="container">
+                <a class="navbar-brand my-3" href="/homeLoad" style="font-size: 5vh; color: rgb(73, 71, 71);">
+                    Fine Bonito
+                </a>
+                <img src="/public/images/needle.png" alt="" class="me-5 needle-image" style="width: 2vw;" id="needle">
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav menu_nav ml-auto">
+                        <li class="nav-item"><a class="nav-link" href="/homeLoad">Home</a></li>
+                        <li class="nav-item submenu dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false">Shop</a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item"><a class="nav-link" href="/getallproducts">All Products</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/getshirtpage">Shirts</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/getJeanspage">Jeans</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/getShoespage">Shoes</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item submenu dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false">User</a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item"><a class="nav-link" href="/userprofile?id={{this._id}}">Profile</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="/getorders?id={{this._id}}">Orders</a>
+                                </li>
+                                <li class="nav-item">
+                                    <form class="form-inline my-2 my-lg-0" method="post" action="/logout">
+                                        <button class="btn btn" type="submit"
+                                            style="font-family: sans-serif;background-color: rgb(255, 255, 255);"><img
+                                                src="/public/images/icons/exit.png" class="me-2"
+                                                style="width: 3.5vh;justify-content: center;" alt=""><span class="ms-2"
+                                                style="color: rgb(13, 13, 161);">Logout</span></button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="/addtocart"><img
+                                    src="/public/images/icons/cartblack.png" alt=""
+                                    style="height: 3vh; min-height: 1vw;"></a></li>
+                        <li class="nav-item"><a href="/getWishlist" class="cart me-3"><img
+                                    src="/public/images/icons/lovblack.png"
+                                    style="height: 3vh; opacity: 0.7; min-height 1vw;margin-top: 2vh;" alt=""></a></li>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>

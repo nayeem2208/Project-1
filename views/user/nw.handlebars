@@ -1,0 +1,241 @@
+ <div class="col-md-6">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col">
+                                    <div>
+                                        <h4 style="color: rgb(32, 32, 32);">Payment Method</h4>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <input type="radio" name="typeofpayment" id="" value="cardpayment"
+                                                    checked>
+                                                <h5 class="card-title"> Card</h5>
+                                                {{!-- <p class="card-text">Enter your credit card details</p> --}}
+                                            </div>
+                                            </input>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <input type="radio" name="typeofpayment" value="cashondelivery">
+                                                <h5 class="card-title">Cash on delivery</h5>
+                                                </input>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <input type="radio" name="typeofpayment" value="otherpayment">
+                                                <h5 class="card-title">Razorpay</h5>
+                                                <button id="rzp-button1">Pay with Razorpay</button>
+
+                                                </input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col ">
+                                    <h4 style="color: rgb(32, 32, 32);">Checkout</h4>
+                                    <div class="card-body" style="background-color: rgb(255, 255, 255);">
+                                        <h5 class="card-title">Order Summary</h5>
+                                        <table class="table">
+                                            <tbody>
+
+                                                <tr>
+                                                    <td><strong>Total</strong></td>
+                                                    <td class="total"><strong>₹<span
+                                                                id="finalAmount">{{totalamount}}</span></strong></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <button type="submit" class="btn btn-info " style="width: 100%; "
+                                            onclick="function3()">Proceed to Checkout</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+<button id="rzp-button1">Pay with Razorpay</button>
+
+
+
+
+
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script> 
+                 var orderId;
+        $(document).ready(function () {
+            var settings = {
+                "url": "/create/orderId",
+                "method": "POST",
+                "timeout": 0,
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "data": JSON.stringify({
+                    "amount": "50000"
+                }),
+            };
+
+            document.getElementById('rzp-button1').onclick = function (e) {
+                var options = {
+                    "key":{{key}}, // Enter the Key ID generated from the Dashboard
+                    "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                    "currency": "INR",
+                    "name": "Fine Bonito",
+                    "description": "Buy your items",
+                    "image": "https://example.com/your_logo",
+                    "order_id": orderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                    "handler": function (response) {
+                        alert(response.razorpay_payment_id);
+                        alert(response.razorpay_order_id);
+                        alert(response.razorpay_signature)
+                    },
+                    var settings = {
+                      "url": "/api/payment/verify",
+                       "method": "POST",
+                        "timeout": 0,
+                        "headers": {
+                        "Content-Type": "application/json"
+                        },
+                         "data": JSON.stringify({response}),
+}
+                    //creates new orderId everytime
+                    $.ajax(settings).done(function (response) {
+
+                        orderId = response.orderId;
+                        console.log(orderId);
+                        $("button").show();
+                    });
+                    "theme": {
+                        "color": "#3399cc"
+                    }
+                }
+                    var rzp1 = new Razorpay(options);
+                    rzp1.on('payment.failed', function (response) {
+                        alert(response.error.code);
+                        alert(response.error.description);
+                        alert(response.error.source);
+                        alert(response.error.step);
+                        alert(response.error.reason);
+                        alert(response.error.metadata.order_id);
+                        alert(response.error.metadata.payment_id);
+                    });
+                    rzp1.open();
+                    e.preventDefault();
+                }
+            });
+
+
+
+
+
+
+              {{!--
+    <script>
+        $('.contact_form').submit(function (e) {
+            e.preventDefault()
+            console.log('doneeee')
+            const paymentMethod = document.querySelector('input[name="typeofpayment"]:checked').value;
+            console.log(paymentMethod)
+            if (paymentMethod == 'onlinePayment') {
+                var formData = $(this).serialize()
+                $.ajax({
+                    url: '/createorder',
+                    type: 'post',
+                    data: formData,
+                    success: function (res) {
+                        if (res.success) {
+                            var option = {
+                                'key': "" + res.key_id + "",
+                                'amount': "" + res.amount + "",
+                                'currency': "INR",
+                                'name': "" + res.productname + "",
+                                'description': "" + res.description + "",
+                                'image': " "
+                            'order_id': "" + res.order_id + "",
+                                "handler": function (response) {
+                                    alert('payment Succeeded')
+                                },
+                                "prefill": {
+                                    "contact": "" + res.contact + "",
+                                    "name": "" + res.name + "",
+                                    "email": "" + res.email + ""
+
+                                },
+                                "notes": {
+                                    "description": "" + res.description + ""
+                                },
+                                "theme": {
+                                    "color": "#2300a3"
+                                }
+
+                            }
+                            var razorpayObject = new Razorpay(options)
+                            razorpayObject.on('payment.failed', function (response) {
+                                alert('payment Failed')
+                            })
+                            razorpayObject.open()
+                        }
+                        else {
+                            alert(res.msg)
+                        }
+                    }
+                })
+            }
+            else {
+                console.log('casshhhh')
+                var form = $(this);
+                var url = form.attr('action');
+                var method = form.attr('method');
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'paymentMethod',
+                    value: paymentMethod
+                }).appendTo(form);
+                form.attr('action', '/checkout');
+                form.attr('method', 'POST');
+                form.unbind('submit').submit();
+                form.attr('action', url);
+                form.attr('method', method);
+            }
+        });
+
+
+    </script> --}}
+
+
+    const hiddenInput = document.createElement('input');
+                                        hiddenInput.type = 'hidden';
+                                        hiddenInput.name = 'paymentMethod';
+                                        hiddenInput.value = paymentMethod;
+                                        form.appendChild(hiddenInput);
+
+                                        form.action = '/paymentDone';
+                                        form.method = 'POST';
+                                        form.submit();
+
+                                        fetch(form.action, {
+                                            method: form.method,
+                                            body: new FormData(form)
+                                        })
+                                            .then(response => {
+                                                if (response.ok) {
+                                                    return response.json();
+                                                } else {
+                                                    throw new Error('Network response was not ok.');
+                                                }
+                                            })
+                                            .then(data => {
+                                                // Process the response data
+                                                function3();
+                                            })
+                                            .catch(error => {
+                                                // Handle any errors
+                                                console.error('Error:', error);
+                                            });

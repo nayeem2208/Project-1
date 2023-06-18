@@ -1,0 +1,203 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{title}}</title>
+    <script type="text/javascript" charset="utf8"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/dataTables.bootstrap4.min.css">
+</head>
+<style>
+    .date-form {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        margin-top: 10px;
+    }
+
+    .date-input {
+        margin-left: 5px;
+        padding: 5px;
+
+        border-radius: 5px;
+    }
+
+    label {
+        margin-right: 5px;
+        color: white;
+    }
+
+    .d-flex.justify-content-center {
+        display: flex;
+        justify-content: center;
+    }
+
+    .form-select {
+        padding: 8px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        background-color: #fff;
+        color: #495057;
+        width: 200px;
+        font-size: 14px;
+        line-height: 1.5;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    .form-select:focus {
+        outline: none;
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    #productsTable tbody tr:hover {
+        background-color: #94929638;
+        cursor: pointer;
+    }
+
+    #productsTable tbody tr:hover td {
+        color:#ffd900;;
+    }
+
+    body,
+    th,
+    td,
+    a,
+    .btn {
+        color: rgb(238, 233, 233);
+    }
+
+    a {
+        text-decoration: none;
+
+    }
+
+    table.table {
+        border-color: rgba(255, 255, 255, 0.2);
+        /* Adjust the opacity value (0.5 in this case) to your preference */
+    }
+</style>
+
+<body style="background-color: rgb(71, 66, 66);">
+    {{> adminHeader}}
+    <div style="height: 13vh;"></div>
+    <div class="row d-flex col-md-12">
+
+        {{>adminsidebar currentPage='adminSales'}}
+
+        <div class="col-10">
+            <div class="d-flex">
+                <a href="/admin/salesPage" class="btn btn mx-2 my-3"
+                    style="background-color: #747470;font-size: small">Total sales</a>
+                <a href="/admin/getTodaySales" class="btn btn mx-2 my-3"
+                    style="background-color: #747470;font-size: small">Today sales</a>
+                <a href="/admin/getWeekSales" class="btn btn mx-2 my-3"
+                    style="background-color: #747470;font-size: small">Week sales</a>
+                <a href="/admin/getMonthSales" class="btn btn mx-2 my-3"
+                    style="background-color: #747470;font-size: small">Monthly sales</a>
+                <a href="/admin/getYearSales" class="btn btn mx-2 my-3"
+                    style="background-color: #747470;font-size: small">Year sales</a>
+                <div style="margin-left: auto;" class="mt-3">
+                    <form class="date-form" action="/admin/saleswithDate" method="post">
+                        <label for="from-date">From</label>
+                        <input id="from-date" class="date-input" name="fromDate"
+                            style="background-color: #747470;color: #ced4da;font-size: x-small;" type="date">
+                        <label for="to-date" class="ms-2">To</label>
+                        <input id="to-date" class="date-input" name="toDate"
+                            style="background-color: #747470;color: #ced4da;font-size: x-small;" type="date">
+                        <button type="submit" class="btn btn ms-2"
+                            style="font-size:small;background-color: #000000;">Get</button>
+                    </form>
+
+                </div>
+            </div>
+            <h4 class="mt-2 ms-2">Total:₹{{total.[0].totalAmount}}</h4>
+            <a href="/admin/salesReport" class="btn btn "
+                style="background-color: #ffd900;color: #000000; font-size: x-small;">Sales Report</a>
+           
+            <div id="buttonsSection">
+                {{#if showButtons}}
+                <button>Button 1</button>
+                <button>Button 2</button>
+                <button>Button 3</button>
+                <button>Button 4</button>
+                <button>Button 5</button>
+                {{/if}}
+            </div>
+            {{#if order}}
+            <div class=" mt-5">
+
+                <table class="table" id="productsTable">
+                    <thead>
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">User</th>
+
+                            <th scope="col">payment</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Amount</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each order}}
+                        <tr>
+                            <td scope="col">{{inc @index}}</td>
+                            <td scope="col">{{formatDate this.dateOrdered}}</td>
+                            <td scope="col">{{this.username}}</td>
+
+                            <td scope="col">{{this.paymentmethord}}</td>
+                            <td scope="col">{{this.status}}</td>
+                            <td scope="col"><i>₹{{this.total}}</i></td>
+
+
+                        </tr>
+                        {{/each}}
+
+                    </tbody>
+                </table>
+                <div style="height: 25vh;"></div>
+            </div>
+            {{else}}
+            <h3 style="color: #ffd900;">No sales registered !!</h3>
+            <div style="height: 50vh;"></div>
+            {{/if}}
+        </div>
+    </div>
+
+
+    {{>adminfooter}}
+
+
+    <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.2/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+    <script>
+
+        $(function () {
+            $('#productsTable').DataTable();
+        });
+        var orderStatus = document.querySelectorAll('.orderStatus');
+
+
+        const showButtonsBtn = document.getElementById('showButtonsBtn');
+        const buttonsSection = document.getElementById('buttonsSection');
+
+        showButtonsBtn.addEventListener('click', () => {
+            buttonsSection.style.display = 'block';
+        });
+
+
+    </script>
+</body>
+
+</html>

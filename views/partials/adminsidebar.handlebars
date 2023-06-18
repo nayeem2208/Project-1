@@ -1,0 +1,110 @@
+<style>
+  /* Add custom styles here */
+  .card {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+
+  .stock {
+    color: rgb(255, 255, 255) !important;
+  }
+
+
+  .sidebar {
+     position:; /* Make the sidebar fixed */
+    top: 0; /* Adjust the top position if needed */
+    left: 0;
+    background-color: rgb(54, 54, 54);
+    flex: 1;
+    padding-top: 20px;
+    color: rgb(255, 255, 255);
+  }
+
+  .sidebar-header {
+    padding: 10px;
+    text-align: center;
+    
+  }
+
+  .sidebar-brand {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 20px;
+    text-decoration: none;
+  }
+
+  .nav-item {
+    margin-bottom: 10px;
+    
+  }
+
+  .nav-link {
+    color: white; /* Set default text color to white */
+    font-weight: bold;
+    transition: color 0.8s;
+  }
+
+  .nav-link.active {
+    background-color: #ffffff; /* Set background color for active page */
+    color: black; /* Set text color for active page */
+  }
+
+  .nav-link:hover {
+    color: #ffc400;
+    
+
+  }
+
+ .sidebar .nav-link.active {
+    background-color: #d3d3d3;
+    border-radius: 10px;
+  }
+  
+  .card-body{
+    background-color: #3b3b3b;
+    border-radius: 3px;
+    color: rgb(255, 255, 255);
+  }
+ 
+  
+</style>
+<div class="col-lg-2 col-sm-2 sidebar">
+
+  <ul class="nav flex-column">
+    <li class="nav-item">
+      <a class="nav-link  {{#if (eq currentPage 'dashboard')}}active{{/if}}" href="/admin/adminhome">
+        <i class="bi bi-speedometer2"></i> Dashboard
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link  {{#if (eq currentPage 'adminSales')}}active{{/if}}" href="/admin/salesPage">
+        <i class="bi bi-bar-chart"></i>Sales
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link  {{#if (eq currentPage 'products')}}active{{/if}}" href="/admin/loadProducts">
+        <i class="bi bi-basket"></i> Products
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link  {{#if (eq currentPage 'category')}}active{{/if}}" href="/admin/getcategory">
+        <i class="bi bi-bookmark"></i></i> Category
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link  {{#if (eq currentPage 'users')}}active{{/if}}" href="/admin/adminuser">
+        <i class="bi bi-people"></i> Users
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link  {{#if (eq currentPage 'Orders')}}active{{/if}}" href="/admin/loadorders">
+        <i class="bi bi-bag-check"></i> Orders
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link  {{#if (eq currentPage 'coupon')}}active{{/if}}" href="/admin/coupenPage">
+        <i class="bi bi-box-seam"></i> Coupon
+      </a>
+    </li>
+
+</div>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+
+<head>
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon-->
+    {{!--
+    <link rel="shortcut icon" href="img/fav.png"> --}}
+    <!-- Author Meta -->
+    <meta name="author" content="CodePixar">
+    <!-- Meta Description -->
+    <meta name="description" content="">
+    <!-- Meta Keyword -->
+    <meta name="keywords" content="">
+    <!-- meta character set -->
+    <meta charset="UTF-8">
+    <!-- Site Title -->
+    <title>Fine Bonito</title>
+
+    <!--
+            CSS
+            ============================================= -->
+    <link rel="stylesheet" href="/public/css/linearicons.css">
+    <link rel="stylesheet" href="/public/css/owl.carousel.css">
+    <link rel="stylesheet" href="/public/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/public/css/themify-icons.css">
+    <link rel="stylesheet" href="/public/css/nice-select.css">
+    <link rel="stylesheet" href="/public/css/nouislider.min.css">
+    <link rel="stylesheet" href="/public/css/bootstrap.css">
+    <link rel="stylesheet" href="/public/css/main.css">
+     <style>
+         #preloader {
+            background: #ffffff url(/public/images/c1bcd8a8c945b53da6b29f10a2a553c0.gif) no-repeat center center;
+            background-size: 30%;
+            height: 100vh;
+            width: 100%;
+            position: fixed;
+            z-index: 100;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="preloader"></div>
+    <!-- Start Header Area -->
+    {{>userheader1}}
+    <!-- End Header Area -->
+
+    <!-- Start Banner Area -->
+    <section class="banner-areacart organic-breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    {{!-- <h1>Shopping Cart</h1>
+                    <nav class="d-flex align-items-center">
+                        <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="category.html">Cart</a>
+                    </nav> --}}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Banner Area -->
+    <div class="container">
+        <h1 class="mt-5">{{message}}</h1>
+    </div>
+    <!--================Cart Area =================-->
+                    {{#if products}}
+    <section class="cart_area">
+        <div class="container">
+            <div class="cart_inner">
+                <div class="table-responsive">
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                                <th scope="col">Product</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Size</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Total</th>
+                                <th scope="col"></th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each products}}
+                            <tr class="cardDataClass">
+                                <td>
+                                    <div class="media">
+                                        <div class="d-flex">
+                                            <a href="/loadProductview?id={{this._id}}"><img
+                                                    src="/public/images/products/{{this.image}}" style="height: 19vh;"
+                                                    alt="{{this.name}}"></a>
+                                        </div>
+                                        <div class="media-body">
+                                            <a href="/loadProductview?id={{this._id}}"
+                                                style="text-decoration:none;color: black;">
+                                                <p>{{this.name}}</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h5>₹{{this.price}}</h5>
+                                </td>
+                                <td>
+                                    <p style="color: black; margin-bottom: 0;">Size:{{this.size}}</p>
+                                </td>
+                                <td>
+                                    <div class="d-flex">
+                                        <button class="btn btn-link px-2"
+                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown();this.parentNode.querySelector('.quantityInput').dispatchEvent(new CustomEvent('change'));">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        <div hidden>
+                                            <div class="product_id">{{this._id}}</div>
+                                            <div class="originalPriceClass">{{this.price}}</div>
+                                            <div class="sizeClass">{{this.size}}</div>
+
+                                        </div>
+
+                                        <!-- QUANTITY -->
+                                        <input type="number" style="width: 10%;appearance: textfield;min-width: 30px;"
+                                            name="quantity" id="" class="quantityInput" value="{{this.quantity}}"
+                                            min="1">
+
+                                        <button class="btn btn-link px-2"
+                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp();this.parentNode.querySelector('.quantityInput').dispatchEvent(new CustomEvent('change'));">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h5 class="price"><span class="totalPriceClass">{{this.total}}</span></h5>
+                                </td>
+                                <td>
+                                    <a onclick="confirmRemove('{{this._id}}','{{this.size}}')"
+                                        style="background:linear-gradient(90deg, rgba(173, 17, 155, 0.842) 0%, rgb(50, 0, 233) 100%) ;color: rgb(255, 255, 255);"
+                                        class="btn btn btn-sm">Remove</a>
+                                </td>
+                            </tr>
+                            {{/each}}
+
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                    <h5>Subtotal</h5>
+                                </td>
+                                <td>
+                                    <h5 style="text-align: right;">₹<span id="subtotal">{{subtotal}}</span></h5>
+                                </td>
+                            </tr>
+                            <tr class="shipping_area">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                    <h5>Shipping</h5>
+                                </td>
+                                <td>
+                                    <div class="shipping_box">
+                                        <h5>₹<span id="shipping-price">{{shipping}}</span></h5>
+                                        {{!-- <p style="color: black;" id="shipping-price">₹{{shipping}}</p> --}}
+                                        {{!-- <li><a href="#">Free Shipping</a></li>
+                                        <li><a href="#">Flat Rate: $10.00</a></li>
+                                        <li class="active"><a href="#">Local Delivery: $2.00</a></li> --}}
+
+
+
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="shipping_area">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                    <h5>Grand Total</h5>
+                                </td>
+                                <td>
+                                    <div class="shipping_box">
+                                        <h5>₹<span id="finalAmount">{{finalAmount}}</span></h5>
+                                        {{!-- <p style="color: black;" id="finalAmount">₹{{finalAmount}}</p> --}}
+                                        <input type="text" name="tot" value="{{finalAmount}}" hidden>
+                                        {{!-- <li><a href="#">Free Shipping</a></li>
+                                        <li><a href="#">Flat Rate: $10.00</a></li>
+                                        <li class="active"><a href="#">Local Delivery: $2.00</a></li> --}}
+
+
+
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="out_button_area">
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+
+                                <td>
+                                    <div class="checkout_btn_inner d-flex align-items-center">
+                                        {{!-- <a class="gray_btn" href="#">Continue Shopping</a> --}}
+                                        <a class="primary-btn" href="/checkout?total={{total}}" id="checkoutBtn">Proceed
+                                            to checkout</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+                    {{else}}
+                    <img src="/public/images/storytelling_assets_2_new_thumbnail.gif" style="height: 45vh;" class="ms-5" alt="">
+                    {{/if}}
+    <!--================End Cart Area =================-->
+
+    <!-- start footer Area -->
+    {{>userfooter}}
+    <!-- End footer Area -->
+    <script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const finalAmount = document.getElementById('finalAmount');
+            const subtotal = document.getElementById('subtotal');
+            const shippingPriceEl = document.getElementById('shipping-price');
+            const cardDataArray = Array.from(document.getElementsByClassName('cardDataClass'));
+            console.log('haai')
+            cardDataArray.map(cardData => {
+                const quantityInput = cardData.querySelector('.quantityInput');
+                const originalPrice = cardData.querySelector('.originalPriceClass');
+                const totalPriceEl = cardData.querySelector('.totalPriceClass');
+
+                quantityInput.addEventListener('change', () => {
+                    const totalPrice = quantityInput.value * originalPrice.innerText;
+                    totalPriceEl.innerText = totalPrice.toString();
+                    totalPriceEl.dispatchEvent(new CustomEvent('TotalPriceChanged'));
+                    sendCartUpdateRequest();
+                })
+
+                totalPriceEl.addEventListener('TotalPriceChanged', () => {
+                    const sum = cardDataArray.reduce((sum, cardData) => {
+                        return sum + Number(cardData.querySelector('.totalPriceClass').innerText);
+                    }, 0);
+                    subtotal.innerText = sum.toString();
+                    subtotal.dispatchEvent(new CustomEvent('SubtotalChanged'));
+                });
+
+            });
+
+            subtotal.addEventListener('SubtotalChanged', () => {
+                if (Number(subtotal.innerText) === 0) {
+                    shippingPriceEl.innerText = 0;
+                } else {
+                    shippingPriceEl.innerText = 90;
+                }
+                finalAmount.innerText = (Number(subtotal.innerText) + Number(shippingPriceEl.innerText)).toString();
+            });
+
+            async function sendCartUpdateRequest() {
+                console.log('Hahahdhha')
+                const products = cardDataArray.map(cardData => {
+                    const productid = cardData.querySelector('.product_id').innerText;
+                    const quantity = Number(cardData.querySelector('.quantityInput').value);
+                    const size = cardData.querySelector('.sizeClass').innerText;
+                    return ({
+                        productid,
+                        quantity,
+                        size,
+                        finalAmount: Number(finalAmount.innerText)
+                    })
+                });
+
+                const updatedCartData = { products };
+                console.log(JSON.stringify(updatedCartData, null, 2))
+
+                try {
+                    const response = await fetch('/cart/update', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(updatedCartData),
+                    });
+
+                    const resBody = await response.text();
+                    console.info(resBody);
+                } catch (err) {
+                    console.error(err);
+                }
+            }
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            checkoutBtn.addEventListener('click', async () => {
+                calculateCartTotal();
+                sendCartUpdateRequest();
+                const totalAmount = Number(finalAmount.innerText);
+                const checkoutURL = `/checkout?total=${totalAmount}`;
+                window.location.href = checkoutURL;
+            });
+
+
+
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/911ceacc93.js" crossorigin="anonymous"></script>
+    <script src="/public/js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+        integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+        crossorigin="anonymous"></script>
+    <script src="/public/js/vendor/bootstrap.min.js"></script>
+    <script src="/public/js/jquery.ajaxchimp.min.js"></script>
+    <script src="/public/js/jquery.nice-select.min.js"></script>
+    <script src="/public/js/jquery.sticky.js"></script>
+    <script src="/public/js/nouislider.min.js"></script>
+    <script src="/public/js/jquery.magnific-popup.min.js"></script>
+    <script src="/public/js/owl.carousel.min.js"></script>
+    <!--gmaps Js-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+    <script src="/public/js/gmaps.min.js"></script>
+    <script src="/public/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        function confirmRemove(proid, prosize) {
+            console.log('yes yes')
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'Do you want to remove that from Cart',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Yes, remove it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/removeFromCart/?id=' + proid + '&size=' + prosize
+                }
+            });
+        }
+    </script>
+    <script>
+        var loader = document.getElementById("preloader")
+        window.addEventListener('load', function () {
+            loader.style.display = "none"
+        })
+    </script>
+</body>
+
+</html>

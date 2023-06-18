@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+
+<head>
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon-->
+    {{!--
+    <link rel="shortcut icon" href="img/fav.png"> --}}
+    <!-- Author Meta -->
+    <meta name="author" content="CodePixar">
+    <!-- Meta Description -->
+    <meta name="description" content="">
+    <!-- Meta Keyword -->
+    <meta name="keywords" content="">
+    <!-- meta character set -->
+    <meta charset="UTF-8">
+    <!-- Site Title -->
+    <title>Fine Bonito</title>
+
+    <!--
+            CSS
+            ============================================= -->
+    <link rel="stylesheet" href="/public/css/linearicons.css">
+    <link rel="stylesheet" href="/public/css/owl.carousel.css">
+    <link rel="stylesheet" href="/public/css/themify-icons.css">
+    <link rel="stylesheet" href="/public/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/public/css/nice-select.css">
+    <link rel="stylesheet" href="/public/css/nouislider.min.css">
+    <link rel="stylesheet" href="/public/css/bootstrap.css">
+    <link rel="stylesheet" href="/public/css/main.css">
+    <script src="/public/js/vendor/jquery-2.2.4.min.js"></script>
+     <style>
+        #preloader {
+            background: #ffffff url(/public/images/c1bcd8a8c945b53da6b29f10a2a553c0.gif) no-repeat center center;
+            background-size: 30%;
+            height: 100vh;
+            width: 100%;
+            position: fixed;
+            z-index: 100;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="preloader"></div>
+    {{>userheader1}}
+    <!-- Start Header Area -->
+
+    <!-- End Header Area -->
+
+    <!-- Start Banner Area -->
+    <section class="banner-area organic-breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1>Checkout</h1>
+                    <nav class="d-flex align-items-center">
+                        {{!-- <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="single-product.html">Checkout</a> --}}
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Banner Area -->
+
+    <!--================Checkout Area =================-->
+    <section class="checkout_area section_gap">
+        <div class="container">
+
+
+            <div class="billing_details">
+                <div class="row">
+                    <form class="row contact_form" id="formid" enctype="multipart/form-data">
+                        <div class="col-lg-8">
+                            <h3>Billing Details</h3>
+                            <div class="col-md-12 form-group p_star">
+                                <input type="text" class="form-control" id="first" name="name" value="{{user.name}}"
+                                    placeholder="Name" required>
+                                {{!-- <span class="placeholder" data-placeholder="Name"></span> --}}
+                            </div>
+                            <div class="col-md-6 form-group p_star">
+                                <input type="tel" class="form-control" id="phone" name="phone" value="{{user.phone}}"
+                                    placeholder="Phone" required>
+                                {{!-- <span class="placeholder" data-placeholder="Phone number"></span> --}}
+                            </div>
+
+                            <div class="col-md-6 form-group p_star">
+                                <input type="tel" class="form-control" id="landline" name="landline"
+                                    value="{{user.landPhone}}" placeholder="LandPhone">
+                                {{!-- <span class="placeholder" data-placeholder="Land Phone"></span> --}}
+                            </div>
+                            <div class="col-md-12 form-group p_star">
+                                <input type="email" class="form-control" id="email" name="email" value="{{user.email}}"
+                                    placeholder="Email" required>
+                                {{!-- <span class="placeholder" data-placeholder="Email Address"></span> --}}
+                            </div>
+
+                            <div>
+                                <h3>Choose a Address </h3>
+                            </div>
+                            <div class="col-md-12 form-group p_star">
+                                <select class="addressSelect" id="addressSelect"
+                                    onchange="this.dispatchEvent(new CustomEvent('change'))">
+                                    <option value="">Select</option>
+                                    {{#each address}}
+                                    <option value="{{type}}">{{type}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div class="col-md-12 form-group p_star">
+                                <input type="text" class="form-control" id="houseName" name="houseName"
+                                    placeholder="House name">
+
+                            </div>
+                            <div class="col-md-12 form-group p_star">
+                                <input type="text" class="form-control" id="landMark" name="landMark"
+                                    placeholder="Landmark">
+
+                            </div>
+                            <div class="col-md-12 form-group p_star">
+                                <input type="text" class="form-control" id="location" name="location"
+                                    placeholder="Location">
+
+                            </div>
+                            <div class="col-md-12 form-group p_star">
+                                <input type="text" class="form-control" id="district" name="district"
+                                    placeholder="District">
+
+                            </div>
+                            <div class="col-md-12 form-group p_star">
+                                <input type="text" class="form-control" id="state" name="state" placeholder="State">
+
+                            </div>
+                            <div class="col-md-12 form-group p_star">
+                                <input type="text" class="form-control" id="country" name="country"
+                                    placeholder="Country">
+
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <input type="number" class="form-control" id="zip" name="zip"
+                                    placeholder="Postcode/ZIP">
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <div>
+                                    <a class="btn" href="/checkoutNewAddress" style="height: 6vh;width: 26vh;">Add new
+                                        address</a>
+                                </div>
+                            </div>
+                            <div class="col-md-12 form-group">
+
+                                <textarea class="form-control" name="message" id="message" rows="1"
+                                    placeholder="Order Notes"></textarea>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <div>
+
+                                    <input type="number" class="form-control" name="total" value="{{totalamount}}"
+                                        id="total" hidden>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="order_box">
+
+                                <ul class="list list_2">
+                                    <li><a href="#">Subtotal <span>₹{{totalamount1}}</span></a></li>
+                                    <li><a href="#">Shipping <span>₹{{shipp}}</span></a></li>
+                                    <li><a href="#">Total <span id="totalamount">₹{{totalamount}}</span></a></li>
+                                </ul>
+
+                                <div class="payment_item">
+                                    <div class="radion_btn">
+                                        <input type="radio" id="onlinePayment" name="typeofpayment"
+                                            value="onlinePayment">
+                                        <label for="onlinePayment">Online Payment</label>
+                                        <img src="/public/img/product/card.jpg" alt="">
+                                        <div class="check"></div>
+                                    </div>
+                                    <p>Pay via RazorPay ; you can pay with your credit card if you don’t have a Razorpay
+                                        account.
+                                    </p>
+                                </div>
+                                <div class="payment_item">
+                                    <div class="radion_btn">
+                                        <input type="radio" id="cashPayment" name="typeofpayment" value="Cash">
+                                        <label for="cashPayment">Cash</label>
+                                        <div class="check"></div>
+                                    </div>
+                                </div>
+                                <div class="payment_item">
+                                    <div class="radion_btn">
+                                        <input type="radio" id="walletpayment" name="typeofpayment" value="wallet">
+                                        <label for="walletpayment">Wallet</label>
+
+                                        <div class="check"></div>
+                                    </div>
+                                    <p>your wallet balance is{{user.wallet}}
+                                    </p>
+                                </div>
+
+
+                                <button type="submit" class="primary-btn btn " style="width: 100%; ">Proceed</button>
+                                {{!-- onclick="function3()"// --}}
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="cupon_area">
+                {{!-- <select name="" id="">
+                    <option value="">select a coupon</option>
+                    {{#each coupen }}
+                    <option value="{{name}}">{{name}}</option>
+                    {{/each}}
+                </select> --}}
+                <h3>Coupon </h3>
+                <input type="text" placeholder="Enter coupon code" id="coupon">
+                <a class="tp_btn" href="#" id="apply">Apply Coupon</a>
+            </div>
+        </div>
+    </section>
+    <!--================End Checkout Area =================-->
+    {{>userfooter}}
+
+
+    <script>
+        // Ensure the DOM content is loaded before executing the script
+        document.addEventListener('DOMContentLoaded', () => {
+            // Retrieve the user address object from the decoded JSON
+            const userAddress = JSON.parse(decodeURIComponent('{{{useraddress}}}'));
+
+            // Get references to the address input fields
+            const addressSelect = document.getElementById('addressSelect');
+            const houseName = document.getElementById('houseName');
+            const landMark = document.getElementById('landMark');
+            const locationInput = document.getElementById('location');
+            const district = document.getElementById('district');
+            const stateInput = document.getElementById('state');
+            const countryInput = document.getElementById('country');
+            const zipInput = document.getElementById('zip');
+
+
+            const coupens = JSON.parse(decodeURIComponent('{{{coupen}}}'))
+            const totalamount = document.getElementById('totalamount')
+            const applyCode = document.getElementById('apply')
+            const inputcoupon = document.getElementById('coupon')
+            const totaltoserver = document.getElementById('total')
+
+
+
+            // Function to populate input fields with selected address
+            addressSelect.addEventListener('change', () => {
+
+                const selectaddress = addressSelect.value;
+                const address = userAddress.find(add => add.type === selectaddress);
+                if (address) {
+
+                    houseName.value = address.housename || '';
+                    landMark.value = address.landmark || '';
+                    locationInput.value = address.location || '';
+                    district.value = address.district || '';
+                    stateInput.value = address.state || '';
+                    countryInput.value = address.country || '';
+                    zipInput.value = address.pincode || '';
+                }
+            });
+
+            applyCode.addEventListener('click', () => {
+                const couponselect = coupens.find(a => a.name === inputcoupon.value)
+                const datetoday = Date.now()
+                const exp = Date.parse(couponselect.dateExpiry)
+
+                console.log(exp, 'haaai')
+                if (exp > datetoday) {
+                    console.log(couponselect.discount)
+                    const num = couponselect.discount
+
+
+                    let totalAmountString = totalamount.innerHTML;
+                    totalAmountString = totalAmountString.replace(/\D/g, '');
+                    totalamountvalue = parseInt(totalAmountString)
+                    if (!isNaN(totalamountvalue)) {
+                        totalamountvalue = totalamountvalue - num
+                        totalamount.innerHTML = totalamountvalue
+                        totaltoserver.value = totalamountvalue + ''
+
+                        const index = coupens.indexOf(couponselect);
+                        if (index > -1) {
+                            coupens.splice(index, 1);
+                        }
+
+                        inputcoupon.value = null;
+
+                        console.log(coupens)
+                    }
+                }
+                else{
+
+                   inputcoupon.value='Coupon has expired'
+                   {{!-- inputcoupon.style.color=String('red') --}}
+                  
+                }
+
+
+            })
+
+
+        });
+    </script>
+
+
+
+    <script>
+
+        function function3() {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Order Successfull',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
+
+
+
+    </script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('formid');
+            const onlinePayment = document.getElementById('onlinePayment');
+            const cashPayment = document.getElementById('cashPayment');
+            const total = document.getElementById('total').value
+            const walletpayment = document.getElementById('walletpayment')
+
+            console.log(total, 'to')
+
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const paymentMethod = document.querySelector('input[name="typeofpayment"]:checked').value;
+
+                if (!paymentMethod) {
+                    alert('Please select a payment method.');
+                    return;
+                }
+
+                if (paymentMethod === 'onlinePayment') {
+                    const formData = new FormData(form);
+                    formData.append('total', document.querySelector('#total').value);
+                    fetch('/createorder', {
+                        method: 'POST',
+                        body: formData,
+                    })
+                        .then((response) => response.json())
+                        .then((res) => {
+                            if (res.success) {
+                                const options = {
+                                    key: res.key_id,
+                                    amount: res.amount,
+                                    currency: 'INR',
+                                    name: res.productname,
+                                    description: res.description,
+                                    order_id: res.order_id,
+                                    handler: function (response) {
+
+                                        const hiddenInput = document.createElement('input');
+                                        hiddenInput.type = 'hidden';
+                                        hiddenInput.name = 'paymentMethod';
+                                        hiddenInput.value = paymentMethod;
+                                        form.appendChild(hiddenInput);
+
+                                        form.action = '/paymentDone';
+                                        form.method = 'POST';
+
+
+                                        fetch(form.action, {
+                                            method: form.method,
+                                            body: new FormData(form)
+                                        })
+                                            .then(response => {
+                                                if (response.ok) {
+                                                    return response.json();
+
+                                                } else {
+                                                    throw new Error('Network response was not ok.');
+                                                }
+                                            })
+                                            .then(data => {
+                                                console.log('get newpagef')
+                                                // Process the response data
+                                                window.location.href = '/getnewpage'
+
+                                            }).catch(error => {
+                                                // Handle any errors
+                                                console.error('Error:', error);
+                                            });
+
+                                    },
+                                    prefill: {
+                                        contact: res.contact,
+                                        name: res.name,
+                                        email: res.email,
+                                    },
+                                    notes: {
+                                        description: res.description,
+                                    },
+                                    theme: {
+                                        color: '#2300a3',
+                                    },
+                                };
+
+                                const razorpayObject = new Razorpay(options);
+                                razorpayObject.on('payment.failed', function (response) {
+                                    alert('Payment failed');
+                                });
+                                razorpayObject.open();
+                            } else {
+                                alert(res.msg);
+                            }
+                        });
+                } else if (paymentMethod === 'Cash') {
+                    console.log('haaaai')
+                    const hiddenInput = document.createElement('input');
+                    hiddenInput.type = 'hidden';
+                    hiddenInput.name = 'paymentMethod';
+                    hiddenInput.value = paymentMethod;
+                    form.appendChild(hiddenInput);
+                    const formData = new FormData(form)
+                    console.log(formData)
+                    form.action = '/checkout';
+                    form.method = 'POST';
+                    form.submit();
+
+                    fetch(form.action, {
+                        method: form.method,
+                        body: formData
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                return response.json();
+
+                            } else {
+                                throw new Error('Network response was not ok.');
+                            }
+                        })
+                        .then(data => {
+                            // Process the response data
+                            swal.fire({
+                                title: 'Success',
+                                text: 'Payment succeeded!',
+                                icon: 'success',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                didClose: () => {
+                                    window.location.href = '/getorders';
+                                }
+                            });
+                        }).catch(error => {
+                            // Handle any errors
+                            console.error('Error:', error);
+                        });
+
+                }
+                else if (paymentMethod == 'wallet') {
+                    const walletbalance = JSON.parse(decodeURIComponent('{{wallet}}'))
+                    if (walletbalance < total) {
+                        alert('Dont have enough balance in wallet')
+                        return
+                    }
+                    else {
+                        const formData = new FormData(form)
+                        fetch('/walletCheckout', {
+                            method: 'POST',
+                            body: formData
+                        }).then(response => {
+                            if (response.ok) {
+                                return response.json()
+                            }
+                            else {
+                                throw new Error('Network was not ok')
+                            }
+                        }).then(data => {
+                            swal.fire({
+                                title: 'Success',
+                                text: 'Payment succeeded!',
+                                icon: 'success',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                didClose: () => {
+                                    window.location.href = '/getorders';
+                                }
+                            });
+                        }).catch(error => {
+                            // Handle any errors
+                            console.error('Error:', error);
+                        });
+                    }
+                }
+            });
+        });
+
+    </script>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+        integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+        crossorigin="anonymous"></script>
+    <script src="/public/js/vendor/bootstrap.min.js"></script>
+    <script src="/public/js/jquery.ajaxchimp.min.js"></script>
+    <script src="/public/js/jquery.nice-select.min.js"></script>
+    <script src="/public/js/jquery.sticky.js"></script>
+    <script src="/public/js/nouislider.min.js"></script>
+    <script src="/public/js/jquery.magnific-popup.min.js"></script>
+    <script src="/public/js/owl.carousel.min.js"></script>
+    <!--gmaps Js-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+    <script src="/public/js/gmaps.min.js"></script>
+    <script src="/public/js/main.js"></script>
+     <script>
+        var loader = document.getElementById("preloader")
+        window.addEventListener('load', function () {
+            loader.style.display = "none"
+        })
+    </script>
+</body>
+
+</html>

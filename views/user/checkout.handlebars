@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Checkout</title>
+</head>
+
+<body style="background-image: url(/public/images/dressbackground.jpg); background-size: cover;">
+    {{>header}}
+    <div style="height: 14vh;"></div>
+    <div class="container mt-5 mb-5 ">
+        <div>
+            <form action="/checkout" method="post">
+                <div class="row ">
+                    <div class="col-md-6 ">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{user.name}}"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" value="{{user.phone}}"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="landline" class="form-label">Landline</label>
+                            <input type="tel" class="form-control" id="landline" name="landline"
+                                value="{{user.landPhone}}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{user.email}}"
+                                required>
+                        </div>
+
+
+                        <h4 class="mt-3 mb-3">Choose a Address</h4>
+                        {{#each useraddress}}
+                        <div class="card mt-2 mb-1 me-5">
+                            <div class="card-body text-center">
+                                <h1 class="card-title">{{user.name}}</h1>
+
+                                <div class="profile-details d-flex">
+                                    <div>
+                                        <input type="radio" name="addressSelect" value="{{@index}}" required>
+                                    </div>
+                                    <div>
+                                        <p><span class="profile-label me-3">Type: </span> {{type}}</p>
+                                        <p><span class="profile-label me-3">Address: </span>
+                                            {{housename}},{{landmark}},{{location}},{{pincode}}</p>
+                                    </div>
+                                    {{!-- <p><span class="profile-label me-3">Email:</span> {{user.email}}</p>
+                                    <p><span class="profile-label me-3">Phone:</span><span
+                                            style="margin-left: 20px;">{{user.phone}}</span></p>
+                                    <p><span class="profile-label me-3">landPhone:</span> {{user.landphone}}</p>
+                                    <a href="editUser" class="btn btn-success mt-2 ">Edit details</a> --}}
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+                        <a href="/checkoutNewAddress" id="custom-link"
+                            style="background-color: rgb(115, 67, 160); color: rgb(255, 255, 255);" class="btn btn">
+                            Add new
+                            Address
+                        </a>
+                        <input type="text" value="{{totalamount}}" name="total" hidden>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="container-fluid">-
+                            <div class="row">
+                                <div class="col">
+                                    <div>
+                                        <h4 style="color: rgb(32, 32, 32);">Payment Method</h4>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <input type="radio" name="typeofpayment" id="" value="cardpayment"
+                                                    checked>
+                                                <h5 class="card-title"> Card</h5>
+                                                {{!-- <p class="card-text">Enter your credit card details</p> --}}
+                                            </div>
+                                            </input>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <input type="radio" name="typeofpayment" value="cashondelivery">
+                                                <h5 class="card-title">Cash on delivery</h5>
+                                                </input>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <input type="radio" name="typeofpayment" value="otherpayment">
+                                                <h5 class="card-title">Razorpay</h5>
+                                                
+
+                                                </input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col ">
+                                    <h4 style="color: rgb(32, 32, 32);">Checkout</h4>
+                                    <div class="card-body" style="background-color: rgb(255, 255, 255);">
+                                        <h5 class="card-title">Order Summary</h5>
+                                        <table class="table">
+                                            <tbody>
+
+                                                <tr>
+                                                    <td><strong>Total</strong></td>
+                                                    <td class="total"><strong>₹<span
+                                                                id="finalAmount">{{totalamount}}</span></strong></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <button type="submit" class="btn btn-info " style="width: 100%; "
+                                            onclick="function3()">Proceed to Checkout</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                  
+                <div class="row mt-5 ">
+
+
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {{>userfooter}}
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+
+         function function3() {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Order Successfull',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
+       
+       
+
+    </script>
+    <script>
+        $(document).ready(function(e){
+            e.preventDefault()
+            var formData=$(this).serialize()
+            $.ajax({
+                url:'/createorder',
+                type:'post',
+                data:formData,
+                success:function(res){
+                    if(res.success){
+                        var option={
+                            'key':""+res.key_id+"",
+                            'amount':""+res.amount+"",
+                            'currency':"INR",
+                            'name':""+res.productname+"",
+                            'description':""+res.description+"",
+                            'image':" "
+                            'order_id':""+res.order_id+"",
+                            "handler":function(response){
+                                alert('payment Succeeded')
+                            },
+                            "prefill":{
+                                "contact":""+res.contact+"",
+                                "name":""+res.name+"",
+                                "email":""+res.email+""
+
+                            },
+                            "notes":{
+                                "description":""+res.description+""
+                            },
+                            "theme":{
+                                "color":"#2300a3"
+                            } 
+
+                        }
+                        var razorpayObject=new Razorpay(options)
+                        razorpayObject.on('payment.failed',function(response){
+                            alert('payment Failed')
+                        })
+                        razorpayObject.open()
+                    }
+                    else{
+                        alert(res.msg)
+                    }
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>
+
+
+  

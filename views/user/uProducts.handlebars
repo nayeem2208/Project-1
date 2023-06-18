@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+
+<head>
+	<!-- Mobile Specific Meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Favicon-->
+	{{!--
+	<link rel="shortcut icon" href="img/fav.png"> --}}
+	<!-- Author Meta -->
+	<meta name="author" content="CodePixar">
+	<!-- Meta Description -->
+	<meta name="description" content="">
+	<!-- Meta Keyword -->
+	<meta name="keywords" content="">
+	<!-- meta character set -->
+	<meta charset="UTF-8">
+	<!-- Site Title -->
+	<title>Fine Bonito</title>
+
+	<!--
+            CSS
+            ============================================= -->
+	<link rel="stylesheet" href="/public/css/linearicons.css">
+	<link rel="stylesheet" href="/public/css/owl.carousel.css">
+	<link rel="stylesheet" href="/public/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/public/css/themify-icons.css">
+	<link rel="stylesheet" href="/public/css/nice-select.css">
+	<link rel="stylesheet" href="/public/css/nouislider.min.css">
+	<link rel="stylesheet" href="/public/css/bootstrap.css">
+	<link rel="stylesheet" href="/public/css/main.css">
+	<style>
+	 #preloader {
+            background: #ffffff url(/public/images/c1bcd8a8c945b53da6b29f10a2a553c0.gif) no-repeat center center;
+            background-size: 30%;
+            height: 100vh;
+            width: 100%;
+            position: fixed;
+            z-index: 100;
+        }
+
+		.prd-bottom a.social-info .hover-text {
+		z-index: 1; /* Add this line */
+	}
+	</style>
+</head>
+
+<body id="category">
+	 <div id="preloader"></div>
+	<!-- Start Header Area -->
+	{{>userheader1}}
+	<!-- End Header Area -->
+
+	<!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					{{!-- <h1>Shop Category page</h1>
+					<nav class="d-flex align-items-center">
+						<a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+						<a href="#">Shop<span class="lnr lnr-arrow-right"></span></a>
+						<a href="category.html">Fashon Category</a>
+					</nav> --}}
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Banner Area -->
+	<div class="container">
+		<div class="row">
+			<div class="col-xl-3 col-lg-4 col-md-5">
+				<div class="sidebar-categories">
+					<div class="head">Browse Categories</div>
+					<ul class="main-categories">
+
+
+						<li class="main-nav-list"><a href="/getshirtpage"><span
+									class="lnr lnr-arrow-right"></span>Shirts<span class="number"></span></a>
+
+						</li>
+						<li class="main-nav-list"><a href="/getJeanspage"><span
+									class="lnr lnr-arrow-right"></span>Jeans<span class="number"></span></a>
+
+						</li>
+						<li class="main-nav-list"><a href="/getShoespage"><span
+									class="lnr lnr-arrow-right"></span>Shoes<span class="number"></span></a>
+
+						</li>
+						<li class="main-nav-list"><a href="#fruitsVegetable"><span
+									class="lnr lnr-arrow-right"></span>Caps<span class="number"></span></a>
+
+						</li>
+						<li class="main-nav-list"><a data-toggle="collapse" href="#fruitsVegetable"
+								aria-expanded="false" aria-controls="fruitsVegetable"><span
+									class="lnr lnr-arrow-right"></span>Sunglasses<span class="number"></span></a>
+
+						</li>
+
+
+					</ul>
+				</div>
+				<div class="sidebar-filter mt-50">
+					<div class="top-filter-head">Product Filters</div>
+					<div class="common-filter">
+
+						<form action="/priceFilter" method="post">
+							<input type="text" name="category" value="{{products.[0].category}}" hidden>
+							<div class="d-flex mt-3">
+								<label for="priceFrom" class="mt-2 mr-3 ml-2">From</label>
+								<input type="number" class="form-control form-control-sm my-2" id="priceFrom"
+									name="priceFrom" style="appearance: textfield;" min="1">
+								<label for="priceTo" class="mt-2 mr-3 ml-2">To</label>
+
+								<input type="number" class="form-control form-control-sm my-2" id="priceTo"
+									name="priceTo" style="appearance: textfield;" min="100">
+							</div>
+							<button class="btn btn mt-3" type="submit"
+								style="font-size:small;height: 5vh;background-color: #828bb3;color: rgb(255, 255, 255);">Filter
+							</button>
+						</form>
+					</div>
+
+				</div>
+
+			</div>
+			<div class="col-xl-9 col-lg-8 col-md-7">
+				<!-- Start Filter Bar -->
+
+				<!-- End Filter Bar -->
+				<!-- Start Best Seller -->
+				<section class="lattest-product-area pb-40 category-list">
+					<div class="container d-flex ">
+						<form class=" ms-5 d-flex mb-4" style="max-width: 12rem;" action="/searchallproducts"
+							method="post">
+							<div class="d-flex ">
+								<input type="text" name="category" value="{{products.[0].category}}" hidden>
+								<input type="search" name="search" class="form-control rounded-0" placeholder="Search"
+									aria-label="Search" style="opacity: 0.6; ">
+								<button class="btn btn-outline-info" type="submit">Find</button>
+							</div>
+							<h2 style="color: black;">{{message}}</h2>
+						</form>
+
+					</div>
+					<div class="row">
+						<!-- single product -->
+						{{#each products}}
+						<div class="col-lg-4 col-md-6">
+							<div class="single-product">
+								<a href="/loadProductview?id={{this._id}}"><img class="img-fluid"
+										src="/public/images/products/{{this.images.[0]}}" alt="">
+									<div class="product-details " style="text-align: center;">
+										<h6>{{this.name}}</h6>
+										<p style="font-size: x-small;color: black;">{{this.description}}</p>
+										<div class="price">
+											<h6>₹{{this.price}}</h6>
+											{{!-- <h6 class="l-through">$210.00</h6> --}}
+										</div>
+								</a>
+								<div class="prd-bottom ">
+
+									<a href="/loadProductview?id={{this._id}}" class="social-info">
+										<span class="ti-bag"></span>
+										<p class="hover-text" >add to bag</p>
+									</a>
+									<a onclick="addToWishlist('{{this._id}}')" class="social-info">
+										<span class="lnr lnr-heart"></span>
+										<p class="hover-text">Wishlist</p>
+									</a>
+
+									<a href="/loadProductview?id={{this._id}}" class="social-info">
+										<span class="lnr lnr-move"></span>
+										<p class="hover-text">view more</p>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					{{/each}}
+
+			</div>
+			</section>
+		</div>
+	</div>
+	</div>
+
+
+	{{>userfooter}}
+
+
+
+	<script src="/public/js/vendor/jquery-2.2.4.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+		integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+		crossorigin="anonymous"></script>
+	<script src="/public/js/vendor/bootstrap.min.js"></script>
+	<script src="/public/js/jquery.ajaxchimp.min.js"></script>
+	<script src="/public/js/jquery.nice-select.min.js"></script>
+	<script src="/public/js/jquery.sticky.js"></script>
+	<script src="/public/js/nouislider.min.js"></script>
+	<script src="/public/js/jquery.magnific-popup.min.js"></script>
+	<script src="/public/js/owl.carousel.min.js"></script>
+	<!--gmaps Js-->
+	<script src="/public/https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+	<script src="/public/js/gmaps.min.js"></script>
+	<script src="/public/js/main.js"></script>
+	<script>
+		function addToWishlist(proid) {
+			Swal.fire({
+				title: 'Added to Wishlist',
+
+				icon: 'success',
+				timer: 2000,
+				showConfirmButton: false
+			}).then((result) => {
+				window.location.href = '/addTowishlist?id=' + proid
+			})
+		}
+	</script>
+	<script>
+		var loader = document.getElementById("preloader")
+		window.addEventListener('load', function () {
+			loader.style.display = "none"
+		})
+	</script>
+
+</body>
+
+</html>
