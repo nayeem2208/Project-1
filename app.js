@@ -28,7 +28,7 @@ var adminRouter = require("./routes/admin");
 // var productsRouter=require('./routes/products')
 
 const mongoose = require("mongoose");
-mongoose.connect(process.env.MONGO_URL);
+mongoose.connect('mongodb://0.0.0.0:27017/finebonito');
 var app = express();
 
 // var instance = new Razorpay({
