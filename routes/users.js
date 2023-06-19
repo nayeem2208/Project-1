@@ -83,6 +83,7 @@ router.get('/getOrderDate/:id',middlewarecontroller.userLoginSession,usercontrol
 
 router.get('/getWishlist',middlewarecontroller.userLoginSession,usercontroller.getWishlist)
 router.get('/addTowishlist',middlewarecontroller.userLoginSession,usercontroller.addTowishlist)
+
 router.get('/removeFromWishlist',middlewarecontroller.userLoginSession,usercontroller.removeFromWishlist)
 //Add to cart//
 router.get('/addtocart',middlewarecontroller.userLoginSession,usercontroller.getCart)

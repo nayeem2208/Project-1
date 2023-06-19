@@ -125,7 +125,7 @@
                                             <button type="submit" class="primary-btn btn me-4"> Add to Cart</button>
                                             {{!-- <a class="icon_btn me-3" href="#"><i
                                                     class="lnr lnr lnr-diamond"></i></a> --}}
-                                            <a onclick="addToWishlist('{{this._id}}')"><i class="bi bi-heart"
+                                            <a onclick="addToWishlist('{{product_id}}')"><i class="bi bi-heart"
                                                     style="font-size:4vh;"></i></a>
                                         </div>
                                     </form>
@@ -206,8 +206,7 @@
                 timer: 1000,
                 showConfirmButton: false
             }).then((result) => {
-                //{{!-- window.location.href = '/addTowishlist?id=' + proid --}}
-                 window.location.reload();
+                window.location.href = '/addTowishlist?id=' + proid
             })
         }
     </script>

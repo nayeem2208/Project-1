@@ -865,8 +865,9 @@ const addTowishlist = async (req, res) => {
       wishlist.product.push({ productid: req.query.id });
       await wishlist.save();
     }
-
-    res.status(200);
+    const product=req.query.id
+    console.log(product,"Id aan tta")
+    res.redirect('/loadProductview?id='+product)
   } catch (error) {
     console.log(error.message);
     res.render("user/error");

@@ -132,8 +132,7 @@
                                     <div class="d-flex align-items-start">
 
                                         <a class="  btn-sm" href="/loadProductview?id={{this.id}}"
-                                            style="background:linear-gradient(90deg, rgba(173, 17, 155, 0.842) 0%, rgb(50, 0, 233) 100%) ;color: rgb(255, 255, 255);">Add
-                                            toCart
+                                            style="background:linear-gradient(90deg, rgba(173, 17, 155, 0.842) 0%, rgb(50, 0, 233) 100%) ;color: rgb(255, 255, 255);">AddtoCart
                                         </a>
                                 </td>
                                 <td>
@@ -198,8 +197,7 @@
                 cancelButtonText: 'Cancel'
             }).then((result) => {
                 if (result.isConfirmed) {
-                   // window.location.href = '/removeFromWishlist?id=' + proid;
-                    window.location.reload();
+                    window.location.href = '/removeFromWishlist?id=' + proid;
                 }
             });
         }
