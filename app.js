@@ -11,10 +11,11 @@ const Razorpay=require('razorpay')
 const bodyparser=require('body-parser')
 
 
-var store = new MongoDBStore({
-  uri: 'mongodb://0.0.0.0:27017/finebonito',
-  collection: 'sessions'
-});
+// var store = new MongoDBStore({
+//   // uri: 'mongodb://0.0.0.0:27017/finebonito',
+//     uri:'mongodb+srv://nayeem670:56PmusurFfD4QcpR@cluster0.ihvan4j.mongodb.net/',
+//   collection: 'sessions'
+// });
 // globalThis.viewsDir = path.join(__dirname, 'views')
 
 // 
@@ -28,7 +29,7 @@ var adminRouter = require("./routes/admin");
 // var productsRouter=require('./routes/products')
 
 const mongoose = require("mongoose");
-mongoose.connect('mongodb://0.0.0.0:27017/finebonito');
+mongoose.connect('mongodb+srv://nayeem670:56PmusurFfD4QcpR@cluster0.ihvan4j.mongodb.net/?retryWrites=true&w=majority');
 var app = express();
 
 
@@ -105,7 +106,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: { secure: false },
-    store,
+    // store,
   })
 );
 
