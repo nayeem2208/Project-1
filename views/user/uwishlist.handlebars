@@ -198,7 +198,8 @@
                 cancelButtonText: 'Cancel'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = '/removeFromWishlist?id=' + proid;
+                   // window.location.href = '/removeFromWishlist?id=' + proid;
+                    window.location.reload();
                 }
             });
         }
