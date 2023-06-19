@@ -40,6 +40,67 @@
             position: fixed;
             z-index: 100;
         }
+        @media screen and (max-width: 768px) {
+        body {
+            font-size: 14px;
+        }
+
+        .container {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            margin: 0;
+        }
+
+        .card .col-md-6 {
+            margin-bottom: 20px;
+        }
+
+        .card .col-md-6:nth-child(2) {
+            margin-bottom: 0;
+        }
+
+        .images {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .thumbnail {
+            margin-top: 10px;
+        }
+
+        .thumbnail img {
+            width: 50px;
+            margin-bottom: 10px;
+        }
+
+        .product {
+            padding: 10px;
+        }
+
+        .product h3 {
+            font-size: 18px;
+        }
+
+        .price {
+            margin-top: 0;
+        }
+
+        .sizes {
+            margin-top: 20px;
+        }
+
+        .about {
+            font-size: 14px;
+        }
+
+        .card_area {
+            margin-top: 20px;
+        }
+    }
     </style>
 </head>
 
@@ -138,8 +199,8 @@
                 </div>
             </div>
         </div>
-        {{>userfooter}}
     </div>
+        {{>userfooter}}
 
     <script src="/public/js/vendor/jquery-2.2.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
