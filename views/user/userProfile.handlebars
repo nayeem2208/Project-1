@@ -172,6 +172,7 @@
 
 
       <div class="container col-10">
+        {{#if addressDetails}}
         <div class="row">
           {{#each addressDetails}}
           <div class="col-lg-4 col-md-6">
@@ -232,6 +233,9 @@
           </div>
           {{/each}}
         </div>
+        {{else}}
+        <h3 style="text-align: center;" class="my-5">No Address,Please add your address</h3>
+        {{/if}}
       </div>
       <div class="text-center mb-3">
         <a href="/getaddaddress">

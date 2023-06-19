@@ -6,7 +6,7 @@ const adminschema=new mongoose.Schema({
     required:true
     },
      adminKey:{
-     type: String,
+     type: Number,
      required:true
      },
      is_admin:{
