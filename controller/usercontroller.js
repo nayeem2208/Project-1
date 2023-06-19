@@ -101,6 +101,8 @@ const sendverifymail = (name, email, user_id) => {
   const transporter = nodemailer.createTransport({
     host: process.env.ETHERIALHOST,
     port: process.env.ETHERIALPORT,
+    secure:false,
+    requireTLS:true,
     auth: {
       user: process.env.ETHERILAUSERID,
       pass: process.env.ETHERIALPASSWORD,
@@ -109,7 +111,7 @@ const sendverifymail = (name, email, user_id) => {
 
   const mailoption = {
     from: process.env.FROMMAIL,
-    to: "nayeem670@gmail.com",
+    to: email,
     // to: 'rttaehcct@bugfoo.com',
 
     subject: "verify your mail",
