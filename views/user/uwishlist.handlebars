@@ -56,6 +56,16 @@
             .cardDataClass td:last-child {
                 margin-top: 10px;
             }
+           .img{
+            width: 90%;
+            height: auto;
+           }
+        }
+        @media screen and (min-width: 991px) and (max-width: 1199px) {
+             .img{
+            width: 100%;
+            height: 100%;
+           }
         }
           #preloader {
             background: #ffffff url(/public/images/c1bcd8a8c945b53da6b29f10a2a553c0.gif) no-repeat center center;
@@ -105,7 +115,7 @@
                                     <div class="media">
                                         <div class="image-container d-flex">
                                             <a href="/loadProductview?id={{this.id}}">
-                                                <img src="/public/images/products/{{this.image}}"
+                                                <img class="img" src="/public/images/products/{{this.image}}"
                                                     style="height: 30vh;width:100%" alt="{{this.products.[0].image}}">
 
 
