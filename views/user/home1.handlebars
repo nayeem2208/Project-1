@@ -32,53 +32,83 @@
 	<link rel="stylesheet" href="/public/css/magnific-popup.css">
 	<link rel="stylesheet" href="/public/css/main.css">
 	<style>
-		 #preloader{
-      background: #ffffff url(/public/images/c1bcd8a8c945b53da6b29f10a2a553c0.gif) no-repeat center center;
-      background-size: 40%;
-      height: 100vh;
-      width: 100%;
-      position: fixed;
-      z-index: 100;
-    }
+		#preloader {
+			background: #ffffff url(/public/images/c1bcd8a8c945b53da6b29f10a2a553c0.gif) no-repeat center center;
+			background-size: 40%;
+			height: 100vh;
+			width: 100%;
+			position: fixed;
+			z-index: 100;
+		}
+
+		.banner-content {
+			position: relative;
+		}
+
+		.banner-overlay {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			text-align: center;
+			color: #fff;
+		}
+
+		.banner-overlay h3 {
+			font-size: 30px;
+			margin-bottom: 10px;
+		}
+
+		.banner-overlay p {
+			font-size: 18px;
+		}
+
+		@media screen and (max-width: 768px) {
+			.banner-content h1 {
+				font-size: 7vw;
+				height: 3vw;
+			}
+
+			.welcome {
+				display: none;
+			}
+
+			.banimage {
+				margin-top: 10vh
+			}
+
+			.banner-content img {
+				width: 100%;
+				height: auto;
+				object-fit:cover;
+				min-height: 70vh;
+			}
+		}
 	</style>
 </head>
 
 <body>
 
-	  <div id="preloader"></div>
+	<div id="preloader"></div>
 	<!-- Start Header Area -->
 	{{>userheader1}}
 	<!-- End Header Area -->
 
 	<!-- start banner Area -->
-	<section class="banner-area">
-		<div class="container">
-			<div class="row fullscreen align-items-center justify-content-start">
-				<div class="col-lg-12">
-					
-						<!-- single-slide -->
-						<div class="row single-slide align-items-center d-flex">
-							<div class="col-lg-5 col-md-6">
-								<div class="banner-content">
-									<h1 style="color: aliceblue;">Fine Bonito </h1>
-									<p style="color: rgb(234, 237, 240);">FineBonito is an exquisite online destination
-										for fashion-forward individuals seeking premium dresses and shoes. With our
-										carefully curated collection, we strive to provide the perfect blend of
-										elegance, style, and quality craftsmanship.</p>
-									{{!-- <div class="add-bag d-flex align-items-center">
-										<a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
-										<span class="add-text text-uppercase">Add to Bag</span>
-									</div> --}}
-								</div>
-							</div>
-							
-						</div>
-						
-					
-				</div>
+
+	<div class="carousel-inner" style="height: 100vh;">
+		<div class="banner-content">
+			<img src="/public/images/banners/{{banner}}" class="banimage d-block w-100" alt="">
+			<div class="banner-overlay">
+				<h1 style="color: rgb(255, 255, 255); font-size: 15vw;">FineBonito</h1>
+				<p style="font-size: medium;" class="welcome">Welcome to FineBonito, where style meets elegance in the
+					world of fashion.
+					We are a premier fashion
+					company dedicated to providing you with the finest and most exquisite clothing options</p>
 			</div>
 		</div>
-	</section>
+	</div>
+
 	<!-- End banner Area -->
 
 	<!-- start features Area -->
@@ -117,7 +147,7 @@
 										<div class="deal-details">
 											<h6 class="deal-title">Jeans</h6>
 										</div>
-									</a>                     
+									</a>
 								</div>
 							</a>
 						</div>
@@ -253,9 +283,9 @@
 	<script src="/public/js/gmaps.min.js"></script>
 	<script src="/public/js/main.js"></script>
 	<script>
-		var loader=document.getElementById("preloader")
-		window.addEventListener('load',function(){
-			loader.style.display="none"
+		var loader = document.getElementById("preloader")
+		window.addEventListener('load', function () {
+			loader.style.display = "none"
 		})
 	</script>
 </body>

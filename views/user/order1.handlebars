@@ -180,7 +180,8 @@
 
                             {{#each orderDetails}}
                             <tr class="cardDataClass">
-                                <td>{{inc @index}}</td>
+                                <td><button class="btn-sm btn btn-info" style="border-radius: 100px;" disabled>{{inc
+                                        @index}}</button></td>
                                 <td>
                                     <div class="media">
                                         <div class="image-container">
@@ -239,10 +240,10 @@
     </section>
     {{else}}
     <div class="container">
-    <h1 class="ms-5">No order</h1>
+        <h1 class="ms-5">No order</h1>
 
-                    <img src="/public/images/storytelling_assets_2_new_thumbnail.gif" style="height: 45vh;" class="ms-5" alt="">
-               </div>
+        <img src="/public/images/storytelling_assets_2_new_thumbnail.gif" style="height: 45vh;" class="ms-5" alt="">
+    </div>
     {{/if}}
 
 

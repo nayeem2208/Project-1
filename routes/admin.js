@@ -8,6 +8,9 @@ const path = require('path')
 const bodyparser=require('body-parser')
 router.use(bodyparser.json())
 router.use(bodyparser.urlencoded({extended:true}))
+
+
+
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, path.join(__dirname, '../public/images/products'),(err,success)=>{
@@ -27,6 +30,18 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+
+
+const bannerStorage=multer.diskStorage({
+    destination:(req,file,cb)=>{
+        cb(null,path.join(__dirname,'../public/images/banners'))
+    },
+    filename:(req,file,cb)=>{
+        const name = Date.now()+'-'+file.originalname
+        cb(null,name)
+    }
+  })
+  const bannerUpload = multer({storage:bannerStorage})
 
 
 /* GET users listing. */
@@ -63,6 +78,12 @@ router.get('/coupenPage',middlewarecontroller.adminsession,admincontroller.getCo
 router.post('/addCoupon',middlewarecontroller.adminsession,admincontroller.addCoupon)
 router.get('/removeCoupen',middlewarecontroller.adminsession,admincontroller.removeCoupen)
 router.post('/editCoupon',middlewarecontroller.adminsession,admincontroller.editCoupon)
+
+router.get('/addbanners',middlewarecontroller.adminsession,admincontroller.addBanner)
+router.post('/addbanners',bannerUpload.single('image'),admincontroller.bannerImage)
+router.get('/activatebanner/:id',middlewarecontroller.adminsession,admincontroller.activateBanner)
+router.get('/removebanner/:id',middlewarecontroller.adminsession,admincontroller.removeBanner)
+
 
 router.get('/salesPage',middlewarecontroller.adminsession,admincontroller.getSalesPage)
 router.get('/getTodaySales',middlewarecontroller.adminsession,admincontroller.getSalesToday)

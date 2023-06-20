@@ -1206,7 +1206,7 @@ h1, h2, h3, h4, h5, h6 {
 /* banner area css
 ============================================================================================ */
 .banner-area {
-  background: url(../images/nike1.jpg) center no-repeat;
+  background: url(../images/) center no-repeat;
   background-size: cover;
   position: relative; }
   @media (max-width: 768px) {

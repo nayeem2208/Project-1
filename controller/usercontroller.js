@@ -12,6 +12,8 @@ const { log } = require("console");
 const { encode } = require("punycode");
 const whishlistmodel = require("../models/whishlistmodel");
 const dotenv = require("dotenv").config();
+const Banner=require('../models/bannermodel')
+
 
 const states = [
   "Andhra Pradesh",
@@ -89,8 +91,9 @@ const signupLoad = (req, res) => {
     res.render("user/error");
   }
 };
-const loadverify = (req, res) => {
+const loadverify = async(req, res) => {
   try {
+    const banner = await Banner.findOne({activate:true})
     res.render("user/home1");
   } catch (error) {
     console.log(error.message);
@@ -213,9 +216,10 @@ const loginhelper = async (req, res) => {
             const id = req.session.userid;
             username = req.session.name;
             const products = await productmodel.find({}).lean().exec();
-            // console.log(products.images);
+            const banner = await Banner.findOne({activate:true})
+            
 
-            res.render("user/home1", { products, username, id });
+            res.render("user/home1", { products, username, id ,banner:banner.image});
           }
         }
       } else {

@@ -8,6 +8,7 @@ const usermodel = require("../models/usermodel");
 const PDFDocument = require("pdfkit");
 const fs = require("fs");
 const PdfPrinter = require("pdfmake");
+const Banner=require('../models/bannermodel')
 
 const { homeload } = require("./usercontroller");
 
@@ -336,6 +337,64 @@ const removeCategory = async (req, res) => {
     res.render("admin/error");
   }
 };
+
+const addBanner=async(req,res)=>{
+  try {
+      let bannerData=await Banner.find({}).lean()
+      res.render('admin/adminbanner',{bannerActive:true,bannerData})
+  } catch (error) {
+    console.log(error.message)
+      res.render("admin/error")
+  }
+}
+
+const bannerImage=async(req,res)=>{
+  try {
+      
+      let bannerData=req.body
+      
+      const banner=new Banner({
+          name:bannerData.heading,
+          image:req.file.filename
+      })
+      let success=await banner.save()
+      if(success){
+          console.log("Banner Added Successfully")
+      }
+      res.redirect('/admin/addbanners')
+  } catch (error) {
+      console.log(error.message)
+      res.render("admin/error")
+  }
+}
+
+const activateBanner=async(req,res)=>{
+  try {
+      let id=req.params.id
+      await Banner.updateMany({},{$set:{activate:false}})
+      let activateBanner = await Banner.findByIdAndUpdate(id,{activate:true})
+      if(activateBanner){
+          console.log("Activated Succesfully")
+      }
+      res.redirect('/admin/addbanners')
+  } catch (error) {
+      console.log(error.message)
+      res.render("admin/error")
+  }
+}
+
+const removeBanner=async(req,res)=>{
+  try {
+      let id = req.params.id
+      let deleteBanner = await Banner.findByIdAndDelete(id)
+      if(deleteBanner){
+          console.log("Banner Deleted")
+      }
+      res.redirect('/admin/addbanners')
+  } catch (error) {
+      console.log(error.message)
+  }
+}
 
 const ordersPage = async (req, res) => {
   try {
@@ -1081,4 +1140,8 @@ module.exports = {
   GetYearSales,
   salesWithDate,
   downloadSalesReport,
+  addBanner,
+  bannerImage,
+  activateBanner,
+  removeBanner,
 };
