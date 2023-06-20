@@ -119,7 +119,7 @@ const sendverifymail = (name, email, user_id) => {
     html:
       "<p>hi " +
       name +
-      ',please click here to <a href="http://localhost:3000/register/verify?id=' +
+      ',please click here to <a href="http://finebonito.shop/register/verify?id=' +
       user_id +
       '">verify</a> your mail</p>  ',
   };
