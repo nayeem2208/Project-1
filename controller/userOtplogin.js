@@ -91,7 +91,7 @@ const verifyLoginOtp = async (req, res) => {
 const loadOtppage = (req, res) => {
   
   try {
-    res.render("user/uOtploginemail");
+    res.render("user/uOtpLoginemail");
   } catch (error) {
     console.log(error.message);
   }
