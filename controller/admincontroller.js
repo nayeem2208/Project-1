@@ -778,6 +778,7 @@ const getSalesToday = async (req, res) => {
 
 const getWeekSales = async (req, res) => {
   try {
+    console.log('haai')
     const currentDate = new Date();
 
     // Calculate the start and end dates of the current week
@@ -798,7 +799,7 @@ const getWeekSales = async (req, res) => {
     const order = await ordermodel.aggregate([
       {
         $match: {
-          status: { $nin: ["pending", "delivered", "shipped"] },
+          status: { $nin: ["cancelled", "return", "returned"] },
           dateOrdered: {
             $gte: startOfWeek,
             $lt: endOfWeek,
@@ -814,7 +815,7 @@ const getWeekSales = async (req, res) => {
     const total = await ordermodel.aggregate([
       {
         $match: {
-          status: { $nin: ["pending", "delivered", "shipped"] },
+          status: { $nin: ["cancelled", "return", "returned"] },
           dateOrdered: {
             $gte: startOfWeek,
             $lt: endOfWeek,
