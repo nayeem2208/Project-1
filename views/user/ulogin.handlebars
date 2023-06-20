@@ -38,6 +38,60 @@
             position: fixed;
             z-index: 100;
         }
+         @media (max-width: 767px) {
+            /* Adjust styles for screens smaller than 768px */
+            body {
+                font-size: 14px;
+            }
+
+            .login_box_area .col-lg-6 {
+                margin-bottom: 30px;
+            }
+
+            .login_box_area .col-lg-6:last-child {
+                margin-bottom: 0;
+            }
+
+            .login_box_img {
+                text-align: center;
+                margin-bottom: 30px;
+            }
+
+            .login_box_img img {
+                width: 100%;
+            }
+
+            .login_form_inner {
+                padding: 30px;
+            }
+
+            .login_form_inner h3 {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            /* Adjust styles for screens between 768px and 991px */
+            .breadcrumb-banner {
+                text-align: center;
+            }
+
+            .breadcrumb-banner .col-first {
+                text-align: center;
+            }
+
+            .breadcrumb-banner .col-first h1 {
+                font-size: 36px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            /* Adjust styles for screens larger than 991px */
+            .breadcrumb-banner .col-first h1 {
+                font-size: 48px;
+            }
+        }
     </style>
 </head>
 

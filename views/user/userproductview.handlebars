@@ -40,68 +40,86 @@
             position: fixed;
             z-index: 100;
         }
-        @media screen and (max-width: 768px) {
-        body {
-            font-size: 14px;
-        }
+ 
+    /* Add your custom styles here */
 
-        .container {
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
+    /* Styles for screen widths up to 768px */
+    @media screen and (max-width: 768px) {
+      body {
+        font-size: 14px;
+      }
 
-        .card {
-            margin: 0;
-        }
+      .container {
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
 
-        .card .col-md-6 {
-            margin-bottom: 20px;
-        }
+      .card {
+        margin: 0;
+      }
 
-        .card .col-md-6:nth-child(2) {
-            margin-bottom: 0;
-        }
+      .card .col-md-6 {
+        margin-bottom: 20px;
+      }
 
-        .images {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+      .card .col-md-6:nth-child(2) {
+        margin-bottom: 0;
+      }
 
-        .thumbnail {
-            margin-top: 10px;
-        }
+      .images {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
-        .thumbnail img {
-            width: 50px;
-            margin-bottom: 10px;
-        }
+      .thumbnail {
+        margin-top: 10px;
+      }
 
-        .product {
-            padding: 10px;
-        }
+      .thumbnail img {
+        width: 50px;
+        margin-bottom: 10px;
+      }
 
-        .product h3 {
-            font-size: 18px;
-        }
+      .product {
+        padding: 10px;
+      }
 
-        .price {
-            margin-top: 0;
-        }
+      .product h3 {
+        font-size: 18px;
+      }
 
-        .sizes {
-            margin-top: 20px;
-        }
+      .price {
+        margin-top: 0;
+      }
 
-        .about {
-            font-size: 14px;
-        }
+      .sizes {
+        margin-top: 20px;
+      }
 
-        .card_area {
-            margin-top: 20px;
-        }
+      .about {
+        font-size: 14px;
+      }
+
+      .card_area {
+        margin-top: 20px;
+      }
     }
-    </style>
+
+    /* Styles for screen widths between 992px and 1199px */
+    @media (min-width: 992px) and (max-width: 1199px) {
+      .card .col-md-6 {
+        width: 50%;
+      }
+    }
+
+    /* Styles for screen widths above 1200px */
+    @media (min-width: 1200px) {
+      .card .col-md-6 {
+        width: 60%;
+      }
+    }
+  </style>
 </head>
 
 <body>

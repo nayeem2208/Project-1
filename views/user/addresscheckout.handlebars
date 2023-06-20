@@ -62,7 +62,8 @@
             font-size: 16px;
             font-family: Arial, sans-serif;
         }
-    #preloader {
+
+        #preloader {
             background: #ffffff url(/public/images/c1bcd8a8c945b53da6b29f10a2a553c0.gif) no-repeat center center;
             background-size: 30%;
             height: 100vh;
@@ -70,14 +71,12 @@
             position: fixed;
             z-index: 100;
         }
-
-
         
     </style>
 </head>
 
-<body >
-     <div id="preloader"></div>
+<body>
+    <div id="preloader"></div>
     {{>userheader1}}
     <div style="height: 14vh;"></div>
 
@@ -103,30 +102,18 @@
                     <label for="state">District</label>
                     <input type="text" class="form-control" id="state" name="district">
                 </div>
-                <div class="row">
-                <div class="form-group col mb-4 mt-4 " >
-                    <select name="state" class="custom-select">
-                        <option value="State" >state</option>
-                        {{#each states}}
-                        <option value="{{this}}">{{this}}</option>
-                        {{/each}}
-                    </select>
-
+                <div class="form-group">
+                    <label for="state">State</label>
+                    <input type="text" class="form-control" id="state" name="state">
                 </div>
-
-                <div class="form-group col mb-4 mt-4">
-                    <select name="countries" class="custom-select">
-                        <option value="country" >Country</option>
-                        {{#each countries}}
-                        <option value="{{this}}">{{this}}</option>
-                        {{/each}}
-                    </select>
-
+                <div class="form-group">
+                     <label for="state">country</label>
+                    <input type="text" class="form-control" id="state" name="countries">
                 </div>
-                </div>
+                
                 <div class="form-group mb-4 mt-4">
-                     <label for="type">Address type/Name</label>
-                    <input type="text" name="type" class="form-control" >
+                    <label for="type">Address type/Name</label>
+                    <input type="text" name="type" class="form-control">
 
                 </div>
                 <div class="form-group mb-5">
@@ -213,7 +200,7 @@
 
 
 </script>
- <script>
+<script>
     var loader = document.getElementById("preloader")
     window.addEventListener('load', function () {
         loader.style.display = "none"

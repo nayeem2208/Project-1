@@ -86,6 +86,44 @@
       box-shadow: 20px 20px 60px #bebebe,
         -20px -20px 60px #ffffff;
     }
+
+    .card1 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .card-body {
+      width: 100%;
+    }
+
+    @media (max-width: 767px) {
+      .card1 {
+        margin: 20px 0;
+      }
+
+      .table-responsive {
+        overflow-x: auto;
+      }
+
+      .card-body {
+        padding: 10px;
+      }
+
+      table {
+        width: 100%;
+        table-layout: fixed;
+      }
+    }
+
+    @media (min-width: 992px) and (max-width: 1199px) {
+      table {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+         table-layout: fixed;
+      }
+    }
   </style>
 </head>
 
@@ -167,7 +205,8 @@
 
       <div class="card-body text-center shadow">
         <h3 class="card-title ">Wallet</h3>
-        <p><span class="profile-label me-3">Balance:</span> <span style="font-size: x-large;">₹{{user.wallet}}</span></p>
+        <p><span class="profile-label me-3">Balance:</span> <span style="font-size: x-large;">₹{{user.wallet}}</span>
+        </p>
       </div>
 
 
