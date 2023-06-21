@@ -592,11 +592,13 @@ const getOrders = async (req, res) => {
             payment: data.paymentmethord,
             cancel: data.cancel,
             return: data.return,
+            dateofdelivery:data.deliveryDate,
             date: data.dateOrdered.toLocaleDateString("en-US", {
               year: "numeric",
               month: "long",
               day: "numeric",
             }),
+
           };
         });
 
