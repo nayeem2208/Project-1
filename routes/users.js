@@ -62,6 +62,7 @@ router.get('/getJeanspage',middlewarecontroller.userLoginSession,usercontroller.
 router.get('/getShoespage',middlewarecontroller.userLoginSession,usercontroller.shoesPageLoad)
 router.get('/getallproducts',middlewarecontroller.userLoginSession,usercontroller.allProductsLoad)
 router.get('/loadProductview',middlewarecontroller.userLoginSession,usercontroller.productView)
+
 router.post('/searchallproducts',middlewarecontroller.userLoginSession,usercontroller.usersearch)
 router.post('/priceFilter',middlewarecontroller.userLoginSession,usercontroller.productFilter)
 
@@ -106,14 +107,9 @@ router.post('/paymentDone',upload.none(),middlewarecontroller.userLoginSession,p
 router.post('/walletCheckout',upload.none(),middlewarecontroller.userLoginSession,paymentcontroller.walletCheckout)
 
 
-
-
-
-
-
-
-
-
+router.get('/111',(req,res)=>{
+    res.render('user/view')
+})
 
 
 

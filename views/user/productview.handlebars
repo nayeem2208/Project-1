@@ -40,105 +40,120 @@
             position: fixed;
             z-index: 100;
         }
- 
-    /* Add your custom styles here */
 
-    /* Styles for screen widths up to 768px */
-    @media screen and (max-width: 768px) {
-      body {
-        font-size: 14px;
-      }
+        .card {
+            margin: 0 auto;
+            /* Center the card horizontally */
+        }
 
-      .container {
-        margin-top: 20px;
-        margin-bottom: 20px;
-      }
+        /* Add your custom styles here */
 
-      .card {
-        margin: 0;
-      }
+        /* Styles for screen widths up to 768px */
+        @media screen and (max-width: 768px) {
+            .images {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+               overflow: hidden;
+            }
 
-      .card .col-md-6 {
-        margin-bottom: 20px;
-      }
+            body {
+                font-size: 14px;
+            }
 
-      .card .col-md-6:nth-child(2) {
-        margin-bottom: 0;
-      }
+            .container {
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
 
-      .images {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
+            .card {
+                margin: 0;
+            }
 
-      .thumbnail {
-        margin-top: 10px;
-      }
+            .card .col-md-6 {
+                margin-bottom: 20px;
+            }
 
-      .thumbnail img {
-        width: 50px;
-        margin-bottom: 10px;
-      }
+            .card .col-md-6:nth-child(2) {
+                margin-bottom: 0;
+            }
 
-      .product {
-        padding: 10px;
-      }
+            .images {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
 
-      .product h3 {
-        font-size: 18px;
-      }
+            .thumbnail {
+                margin-top: 10px;
+            }
 
-      .price {
-        margin-top: 0;
-      }
+            .thumbnail img {
+                width: 50px;
+                margin-bottom: 10px;
+            }
 
-      .sizes {
-        margin-top: 20px;
-      }
+            .product {
+                padding: 10px;
+            }
 
-      .about {
-        font-size: 14px;
-      }
+            .product h3 {
+                font-size: 18px;
+            }
 
-      .card_area {
-        margin-top: 20px;
-      }
-    }
+            .price {
+                margin-top: 0;
+            }
 
-    /* Styles for screen widths between 992px and 1199px */
-    @media (min-width: 992px) and (max-width: 1199px) {
-      .card .col-md-6 {
-        width: 50%;
-      }
-    }
+            .sizes {
+                margin-top: 20px;
+            }
 
-    /* Styles for screen widths above 1200px */
-    @media (min-width: 1200px) {
-      .card .col-md-6 {
-        width: 60%;
-      }
-    }
-  </style>
+            .about {
+                font-size: 14px;
+            }
+
+            .card_area {
+                margin-top: 20px;
+            }
+        }
+
+        /* Styles for screen widths between 992px and 1199px */
+        @media (min-width: 992px) and (max-width: 1199px) {
+            .card .col-md-6 {
+                width: 50%;
+            }
+        }
+
+        /* Styles for screen widths above 1200px */
+        @media (min-width: 1200px) {
+            .card .col-md-6 {
+                width: 60%;
+            }
+
+
+        }
+    </style>
 </head>
 
 <body>
     <div id="preloader"></div>
     {{>userheader1}}
     <div style="height: 14vh;"></div>
-    <div class="container mt-5 mb-5">
+    <div class="container-fluid">
         <div class="row d-flex justify-content-center">
-            <div class="col-md-10 ">
-                <div class="card ">
-                    <div class="d-flex justify-content-center">
+            <div class="col">
+                <div class="card col-9 mt-4 my-4">
+                    <div class="row">
                         <div class="col-md-6">
-                            <div class="images p-3">
+                            <div class="images pt-5">
 
-                                <div class="text-center mb-4">
-                                    <img id="main-image" src="/public/images/products/{{initial}}" width="300"
-                                        data-zoom-image="/public/images/products/{{initial}}" class="product-image" />
+                                <div class="text-center">
+                                    <img id="main-image" src="/public/images/products/{{initial}}" width="250"
+                                        class="product-image" data-zoom-image="/public/images/products/{{initial}}" />
                                 </div>
-                                <div class="thumbnail text-center" id="thumbnail">
+
+                                <div class="thumbnail text-center my-2">
                                     {{#each product}}
                                     {{#each this.images}}
                                     <img onclick="change_image(this)" src="/public/images/products/{{this}}" width="70"
@@ -148,69 +163,70 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 mb-4">
-                            <div class="product p-4 ">
+                        <div class="col-md-6">
+                            <div class="product p-5">
                                 <div class="d-flex justify-content-between align-items-center">
+                                </div>
+                                <div class="mt-4 mb-3">
+                                    {{#each product}}
+                                    <span id="productCategory"
+                                        class="text-uppercase text-muted brand mb-0">{{this.category}}</span>
 
-                                    <div>
-                                        {{#each product}}
-                                        <h3 class="text-uppercase">{{this.name}}<span style="font-size: small;"
-                                                class="ms-2">{{this.category}}</span></h3>
-                                        <div class="price d-flex flex-row align-items-center  "
-                                            style="margin-top: -8vh;">
-                                            {{#if this.price}}
-                                            <h4><span class="dis-price">
-                                                    <div class="s_product_text">
-                                                        <h2>₹{{this.price}}</h2>
-                                                    </div>
-                                                    {{!-- <i>₹{{this.price}}</i> --}}
-                                                </span> </h4>
-                                            {{/if}}
-                                        </div>
+                                    <h3 class="text-uppercase">{{this.name}}</h3>
+                                    <div class="price d-flex flex-row align-items-center mb-3">
+                                        {{#if this.price}}
+                                        <h2 id="realPrice" class="me-4 act-price text-black "><i><span style="font-family: none;background: #121FCF;
+background: linear-gradient(to right, #121FCF 0%, #CF1512 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+">₹{{this.price}}</span></i></h2>
+
+                                        {{/if}}
                                     </div>
-                                    <p class="about">{{this.category}}</p>
-                                    <p class="about"><span style="font-size: medium;">{{this.description}}</span> </p>
-
+                                    <p class="about">{{this.description}}</p>
                                     {{/each}}
+                                </div>
+                                <div class="sizes mt-5">
+                                    <h6 class="text-uppercase">Size</h6>
                                     <form action="/addtocart" method="post" id="addToCartForm"
                                         enctype="multipart/form-data">
-
                                         <input type="text" value="{{product_id}}" name="proid" hidden>
-                                        <div class="sizes mt-5">
-                                            <h6 class="text-uppercase">Size</h6>
-                                            <label class="radio">
-                                                <input type="radio" name="size" value="S" checked>
-                                                <span>S</span>
-                                            </label>
-                                            <label class="radio">
-                                                <input type="radio" name="size" value="M">
-                                                <span>M</span>
-                                            </label>
-                                            <label class="radio">
-                                                <input type="radio" name="size" value="L">
-                                                <span>L</span>
-                                            </label>
-                                            <label class="radio">
-                                                <input type="radio" name="size" value="XL">
-                                                <span>XL</span>
-                                            </label>
-                                            <label class="radio">
-                                                <input type="radio" name="size" value="XXL">
-                                                <span>XXL</span>
-                                            </label>
-                                        </div>
-
-                                        <div class="card_area d-flex align-items-center mt-4">
+                                        <label class="radio">
+                                            <input type="radio" name="size" value="S" checked />
+                                            <span>S</span>
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" name="size" value="M" />
+                                            <span>M</span>
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" name="size" value="L" />
+                                            <span>L</span>
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" name="size" value="XL" />
+                                            <span>XL</span>
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" name="size" value="XXL" />
+                                            <span>XXL</span>
+                                        </label>
+                                        <input type="hidden" value="{{productDetails._id}}" name="prodId">
+                                        <input type="hidden" name="price" id="price">
+                                        <div class="cart d-flex mt-4 align-items-center">
                                             <button type="submit" class="primary-btn btn me-4"> Add to Cart</button>
-                                            {{!-- <a class="icon_btn me-3" href="#"><i
-                                                    class="lnr lnr lnr-diamond"></i></a> --}}
+                                            {{!-- <a href="/addtocart?proId={{productDetails._id}}"><button
+                                                    class="btn btn-danger text-uppercase mr-2 px-4">Add to
+                                                    cart</button></a> --}}
+
+
                                             <a onclick="addToWishlist('{{product_id}}')"><i class="bi bi-heart"
                                                     style="font-size:4vh;"></i></a>
-                                        </div>
-                                    </form>
 
-                                    <p>{{message}}</p>
+                                        </div>
                                 </div>
+                                </form>
+                                <p>{{message}}</p>
                             </div>
                         </div>
                     </div>
@@ -218,7 +234,8 @@
             </div>
         </div>
     </div>
-        {{>userfooter}}
+    </div>
+    {{>userfooter}}
 
     <script src="/public/js/vendor/jquery-2.2.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

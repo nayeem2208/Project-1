@@ -219,7 +219,7 @@ const loginhelper = async (req, res) => {
             const banner = await Banner.findOne({activate:true})
             
 
-            res.render("user/home1", { products, username, id ,banner:banner.image});
+            res.render("user/home1", { products, username, id ,banners:banner.image});
           }
         }
       } else {
@@ -322,7 +322,7 @@ const productView = async (req, res) => {
     const product1 = req.query.id;
     const product = await productmodel.findById(product1);
 
-    res.render("user/userproductview", {
+    res.render("user/productview", {
       product,
       product_id: product1,
       initial: product.images[0],
@@ -332,6 +332,8 @@ const productView = async (req, res) => {
     res.render("user/error");
   }
 };
+
+
 
 const usersearch = async (req, res) => {
   try {
@@ -1192,6 +1194,7 @@ module.exports = {
   shoesPageLoad,
   allProductsLoad,
   productView,
+
 
   usersearch,
   userprofile,
