@@ -60,6 +60,9 @@
             width: 90%;
             height: auto;
            }
+           .wshlst{
+            
+           }
         }
         @media screen and (min-width: 991px) and (max-width: 1199px) {
              .img{
@@ -123,12 +126,9 @@
                                 </td>
                                 <td>
 
-                                    <p style="color: black; margin-bottom: 0;">{{this.description}}</p>
+                                    <p style="color: black; margin-bottom: 0;" class="wshlst" id="age-data">{{this.description}}</p>
                                 </td>
-                                <td>
-                                    <h5><span class="totalPriceClass">{{this.status}}</span></h5>
-
-                                </td>
+                              
                                 <td>
                                     <div class="d-flex align-items-start">
 
@@ -142,8 +142,8 @@
                                         style="background:linear-gradient(90deg, rgba(10, 13, 202, 0.842) 0%, rgb(255, 0, 0) 100%) ;color: rgb(255, 255, 255);">
                                         Remove</button>
 
-                </div>
                 </td>
+                </div>
                 </tr>
                 {{/each}}
                 {{else}}
@@ -210,7 +210,7 @@
         })
     </script>
 
-
+    
 
 
 
