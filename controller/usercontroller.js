@@ -12,8 +12,7 @@ const { log } = require("console");
 const { encode } = require("punycode");
 const whishlistmodel = require("../models/whishlistmodel");
 const dotenv = require("dotenv").config();
-const Banner=require('../models/bannermodel')
-
+const Banner = require("../models/bannermodel");
 
 const states = [
   "Andhra Pradesh",
@@ -91,9 +90,9 @@ const signupLoad = (req, res) => {
     res.render("user/error");
   }
 };
-const loadverify = async(req, res) => {
+const loadverify = async (req, res) => {
   try {
-    const banner = await Banner.findOne({activate:true})
+    const banner = await Banner.findOne({ activate: true });
     res.render("user/home1");
   } catch (error) {
     console.log(error.message);
@@ -104,8 +103,8 @@ const sendverifymail = (name, email, user_id) => {
   const transporter = nodemailer.createTransport({
     host: process.env.ETHERIALHOST,
     port: process.env.ETHERIALPORT,
-    secure:false,
-    requireTLS:true,
+    secure: false,
+    requireTLS: true,
     auth: {
       user: process.env.ETHERILAUSERID,
       pass: process.env.ETHERIALPASSWORD,
@@ -216,10 +215,14 @@ const loginhelper = async (req, res) => {
             const id = req.session.userid;
             username = req.session.name;
             const products = await productmodel.find({}).lean().exec();
-            const banner = await Banner.findOne({activate:true})
-            
+            const banner = await Banner.findOne({ activate: true });
 
-            res.render("user/home1", { products, username, id ,banners:banner.image});
+            res.render("user/home1", {
+              products,
+              username,
+              id,
+              banners: banner.image,
+            });
           }
         }
       } else {
@@ -244,13 +247,12 @@ const logout = (req, res) => {
   }
 };
 
-const homeload = (req, res) => {
+const homeload = async (req, res) => {
   try {
-    if (req.session.status) {
-      res.redirect("/");
-    } else {
-      res.render("/ulogin");
-    }
+    const id = req.session.userid;
+    
+    const banner = await Banner.findOne({ activate: true });
+    res.render("user/home1", {   id, banners: banner.image });
   } catch (error) {
     console.log(error.message);
     res.render("user/error");
@@ -332,8 +334,6 @@ const productView = async (req, res) => {
     res.render("user/error");
   }
 };
-
-
 
 const usersearch = async (req, res) => {
   try {
@@ -871,9 +871,9 @@ const addTowishlist = async (req, res) => {
       wishlist.product.push({ productid: req.query.id });
       await wishlist.save();
     }
-    const product=req.query.id
-    console.log(product,"Id aan tta")
-    res.redirect('/loadProductview?id='+product)
+    const product = req.query.id;
+    console.log(product, "Id aan tta");
+    res.redirect("/loadProductview?id=" + product);
   } catch (error) {
     console.log(error.message);
     res.render("user/error");
@@ -1194,7 +1194,6 @@ module.exports = {
   shoesPageLoad,
   allProductsLoad,
   productView,
-
 
   usersearch,
   userprofile,
