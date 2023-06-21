@@ -317,6 +317,7 @@
                 display: block;
 
             }
+           
 
 
         }
@@ -326,7 +327,7 @@
                 display: block;
                 margin-top: 2vh;
             }
-
+          
 
         }
 
@@ -336,6 +337,7 @@
             #bigview {
                 display: none;
             }
+           
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
@@ -348,9 +350,9 @@
     {{#if orderDetails}}
     <div>
         <div style="text-align: center;margin-top: 3vh;">
-            <div style="width: 100%;">
-                <a class="btn-sm mt-5 mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModalCenter"
-                    style="background: linear-gradient(90deg, rgb(255, 0, 76) 0%, rgb(125, 164, 248) 100%); color: rgb(255, 255, 255); width: 100%;font-size: medium;">leave
+            <div style="width: 100%">
+                <a class="messagelink btn-sm mt-5 mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModalCenter"
+                    style="background: linear-gradient(90deg, rgb(255, 0, 76) 0%, rgb(125, 164, 248) 100%); color: rgb(255, 255, 255); width: 100%;font-size: large;">leave
                     your feedback</a>
             </div>
         </div>
@@ -368,7 +370,7 @@
                                     <p style="font-size: small;" class="mt-1 ms-3">Order: ID {{this.id}}</p>
                                 </a>
                             </div>
-                            <div class="card-body " style="margin-top: -5vh;">
+                            <div class="card-body " >
                                 <div class="card1 shadow-0 border mb-4">
                                     <div class="card-body">
                                         <div class="d-flex outcard">
@@ -390,6 +392,8 @@
                                                     </div>
                                                 </a>
                                                 <div class="smallview">
+                                                    <h6 style="font-size: x-small;">Order: ID {{this.id}}</h6>
+                                                    <h6 >₹{{this.total}}</h6>
                                                     {{#if cancel}}
                                                     <a class="btn-sm" onclick="cancelOrder('{{this.id}}')"
                                                         style="font-size: small;text-align: center; width: 25vh; background: linear-gradient(90deg, rgba(173, 17, 155, 0.842) 0%, rgb(50, 0, 233) 100%); color: rgb(255, 255, 255);">Cancel
