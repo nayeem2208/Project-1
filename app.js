@@ -11,32 +11,18 @@ const Razorpay=require('razorpay')
 const bodyparser=require('body-parser')
 
 
-// var store = new MongoDBStore({
-//   // uri: 'mongodb://0.0.0.0:27017/finebonito',
-//     uri:'mongodb+srv://nayeem670:56PmusurFfD4QcpR@cluster0.ihvan4j.mongodb.net/',
-//   collection: 'sessions'
-// });
-// globalThis.viewsDir = path.join(__dirname, 'views')
-
-// 
-// const handlebars = require("handlebars");
 const expresshbs = require("express-handlebars");
-// const hbs = require('hbs');
+
 
 
 var usersRouter = require("./routes/users");
 var adminRouter = require("./routes/admin");
-// var productsRouter=require('./routes/products')
+
 
 const mongoose = require("mongoose");
 mongoose.connect('mongodb+srv://nayeem670:56PmusurFfD4QcpR@cluster0.ihvan4j.mongodb.net/?retryWrites=true&w=majority');
 var app = express();
 
-
-// var instance = new Razorpay({
-//   key_id: process.env.RAZORPAYKEY,
-//   key_secret:process.env.RAZORPAYKEY,
-// });
 
 
 const helpers = {};
@@ -45,9 +31,7 @@ const helpers = {};
 helpers.inc = (value) =>{
   return parseInt(value) + 1;
 }
-// Handlebars.registerHelper('eq',function(a,b)){
-//   return a===b
-// }
+
 helpers.eq=(a,b)=>{
   return a===b
 }
@@ -59,15 +43,17 @@ helpers.formatDate = function(date) {
   return date.toLocaleDateString(undefined, options);
 };
 
-// helpers.gt = function (a, b) {
-//   return a > b;
-// }
+helpers.truncateMessage=function(message, maxLength) {
+  const words = message.split(' ');
 
-// view engine setup
+  if (words.length <= maxLength) {
+    return message;
+  }
 
-// Handlebars.registerHelper('isStatus', function (status, targetStatus, options) {
-//   return status === targetStatus ? options.fn(this) : options.inverse(this);
-// });
+  const truncatedWords = words.slice(0, maxLength);
+  return truncatedWords.join(' ') + '....';
+};
+
 
 app.engine(
   "handlebars",

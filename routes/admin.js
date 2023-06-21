@@ -73,6 +73,9 @@ router.get('/loadorders',middlewarecontroller.adminsession,admincontroller.order
 router.get('/viewOrder',middlewarecontroller.adminsession,admincontroller.viewOrder)
 router.post('/editStatus',middlewarecontroller.adminsession,admincontroller.editStatus)
 
+router.get('/adminMessages',middlewarecontroller.adminsession,admincontroller.getMessage)
+router.get('/feedbackStatus',middlewarecontroller.adminsession,admincontroller.messageStatus)
+
 
 router.get('/coupenPage',middlewarecontroller.adminsession,admincontroller.getCoupenPage)
 router.post('/addCoupon',middlewarecontroller.adminsession,admincontroller.addCoupon)

@@ -140,49 +140,7 @@
   </div>
 
   {{!-- //editmodal --}}
-  <div class="modal " tabindex="-1" role="dialog" id="editModal">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header" style="background-color: #393a3a;color: #f8f9fa;">
-          <h5 class="modal-title">Add Coupen</h5>
-          <button type="button" class="close btn btn " style="color: #f8f9fa;" data-bs-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <form action="/admin/editCoupon" method="post">
-          <div class="modal-body" style="background-color: rgb(107, 103, 103);">
-            <div class="form-group">
-              {{!-- <label for="categoryInput" class="my-2">Coupon:</label> --}}
-              <input type="text" class="form-control form-control-sm my-2" id="editCoupenname" name="couponName"
-                placeholder="Coupon Name">
-            </div>
-            <div class="form-group">
-              {{!-- <label for="categoryInput" class="my-2">Discount:</label>
-              <input type="text" class="form-control form-control-sm my-2" id="categoryInput" name="category"
-                placeholder="Enter Description"> --}}
-              <textarea name="description" id="editDescription" cols="30" rows="3" name="description"
-                placeholder="Description"></textarea>
-            </div>
-            <div class="form-group">
-              {{!-- <label for="categoryInput" class="my-2">Description:</label> --}}
-              <input type="text" class="form-control form-control-sm my-2" id="editCoupenamount" name="amount"
-                placeholder="Discount amount">
-            </div>
-            <div class="form-group">
-              {{!-- <label for="categoryInput" class="my-2">Description:</label> --}}
-              <input type="date" class="form-control form-control-sm my-2" id="editExpiry" name="expiry"
-                placeholder="Expiry Date">
-            </div>
-          </div>
-          <div class="modal-footer" style="background-color: rgb(107, 103, 103);">
-            <button type="submit" class="btn btn-primary">Add</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          </div>
-        </form>
-      </div>
-        
-    </div>
-  </div>
+  
   {{> adminfooter}}
   <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.2/js/dataTables.bootstrap4.min.js"></script>
@@ -197,24 +155,7 @@
 
     const category = document.getElementById('category')
   </script>
-  {{!-- <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const editButton = document.getElementsByClassName('editButton')
-      const editModal = document.getElementById('editModal')
-      const couponName = document.getElementById('editCoupenname')
-      const editDescription = document.getElementById('editDescription')
-      const editCoupenamount = document.getElementById('editCoupenamount')
-      const editExpiry = document.getElementById('editExpiry')
-      var dataName = $(this).data('data-name')
-      
-      
-      const coupenArray=JSON.parse(decodeURIComponent('{{coupen1}}'))
-      console.log(coupenArray)
-      console.log(dataName)
-      
-
-    })
-  </script> --}}
+  
 
   <script>
   document.addEventListener('DOMContentLoaded', function () {

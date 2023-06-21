@@ -82,6 +82,8 @@ router.get('/returnOrder',middlewarecontroller.userLoginSession,usercontroller.r
 router.get('/getOrderDate/:id',middlewarecontroller.userLoginSession,usercontroller.getOrderDate)
 // router.get('/orderinfo',middlewarecontroller.userLoginSession,usercontroller.)
 
+router.post('/addMessage',middlewarecontroller.userLoginSession,usercontroller.addMessage)
+
 router.get('/getWishlist',middlewarecontroller.userLoginSession,usercontroller.getWishlist)
 router.get('/addTowishlist',middlewarecontroller.userLoginSession,usercontroller.addTowishlist)
 

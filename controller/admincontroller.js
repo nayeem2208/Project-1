@@ -8,13 +8,11 @@ const usermodel = require("../models/usermodel");
 const PDFDocument = require("pdfkit");
 const fs = require("fs");
 const PdfPrinter = require("pdfmake");
-const Banner=require('../models/bannermodel')
+const Banner = require("../models/bannermodel");
+const feedbackModel = require("../models/feedbackmode");
 
 const { homeload } = require("./usercontroller");
-
-
-
-
+const { ok } = require("assert");
 
 const loginLoad = (req, res) => {
   try {
@@ -26,11 +24,9 @@ const loginLoad = (req, res) => {
 };
 const adminlogin = async (req, res) => {
   try {
-    
     const adminlogin = await adminmodel.findOne({ adminid: req.body.adminid });
-    
+
     if (adminlogin) {
-      
       let key = req.body.adminkey;
       let adminkey1 = adminlogin.adminKey;
 
@@ -38,7 +34,6 @@ const adminlogin = async (req, res) => {
         req.session.adminstatus = true;
         res.redirect("/admin");
       } else {
-        
         res.render("admin/adminlogin", { message: "invalid password" });
       }
     } else {
@@ -78,9 +73,9 @@ const adminhomePage = async (req, res) => {
     const totaluser = users.length;
     const totalSales = await ordermodel.aggregate([
       {
-        $match:{
-          status:{$nin:['return','returned','cancelled']}
-        }
+        $match: {
+          status: { $nin: ["return", "returned", "cancelled"] },
+        },
       },
       {
         $group: {
@@ -91,9 +86,9 @@ const adminhomePage = async (req, res) => {
     ]);
     const salesbymonth = await ordermodel.aggregate([
       {
-        $match:{
-          status:{$nin:['return','returned','cancelled']}
-        }
+        $match: {
+          status: { $nin: ["return", "returned", "cancelled"] },
+        },
       },
       {
         $group: {
@@ -111,7 +106,7 @@ const adminhomePage = async (req, res) => {
       {
         $match: {
           paymentmethord: { $in: ["Cash", "onlinePayment", "wallet"] },
-          status:{$nin:['return','returned','cancelled']}
+          status: { $nin: ["return", "returned", "cancelled"] },
         },
       },
       {
@@ -128,7 +123,6 @@ const adminhomePage = async (req, res) => {
     ]);
     const totalstock = await productmodel
       .aggregate([
-        
         {
           $group: {
             _id: null,
@@ -152,9 +146,8 @@ const adminhomePage = async (req, res) => {
         // Match orders within the current year or previous year
         {
           $match: {
-            status:{$nin:['return','returned','cancelled']},
+            status: { $nin: ["return", "returned", "cancelled"] },
             dateOrdered: {
-
               $gte: new Date(`${previousYear}-01-01`),
               $lt: new Date(`${currentYear + 1}-01-01`),
             },
@@ -224,7 +217,7 @@ const adminhomePage = async (req, res) => {
       .exec();
 
     const totalSales1 = totalSales[0].totalSum;
-    
+
     res.render("admin/adminhome", {
       totaluser,
       totalSales1,
@@ -267,7 +260,7 @@ const blockUser = async (req, res) => {
     if (user) {
       user.is_Blocked = true;
       await user.save();
-      
+
       res.redirect("/admin/adminuser");
     }
   } catch (error) {
@@ -317,7 +310,6 @@ const addCategory = async (req, res) => {
       const addsuccess = await category.save();
       if (addsuccess) {
         res.redirect("/admin/getcategory");
-        
       }
     }
   } catch (error) {
@@ -338,63 +330,62 @@ const removeCategory = async (req, res) => {
   }
 };
 
-const addBanner=async(req,res)=>{
+const addBanner = async (req, res) => {
   try {
-      let bannerData=await Banner.find({}).lean()
-      res.render('admin/adminbanner',{bannerActive:true,bannerData})
+    let bannerData = await Banner.find({}).lean();
+    res.render("admin/adminbanner", { bannerActive: true, bannerData });
   } catch (error) {
-    console.log(error.message)
-      res.render("admin/error")
+    console.log(error.message);
+    res.render("admin/error");
   }
-}
+};
 
-const bannerImage=async(req,res)=>{
+const bannerImage = async (req, res) => {
   try {
-      
-      let bannerData=req.body
-      
-      const banner=new Banner({
-          name:bannerData.heading,
-          image:req.file.filename
-      })
-      let success=await banner.save()
-      if(success){
-          console.log("Banner Added Successfully")
-      }
-      res.redirect('/admin/addbanners')
-  } catch (error) {
-      console.log(error.message)
-      res.render("admin/error")
-  }
-}
+    let bannerData = req.body;
 
-const activateBanner=async(req,res)=>{
-  try {
-      let id=req.params.id
-      await Banner.updateMany({},{$set:{activate:false}})
-      let activateBanner = await Banner.findByIdAndUpdate(id,{activate:true})
-      if(activateBanner){
-          console.log("Activated Succesfully")
-      }
-      res.redirect('/admin/addbanners')
+    const banner = new Banner({
+      name: bannerData.heading,
+      image: req.file.filename,
+    });
+    let success = await banner.save();
+    if (success) {
+      console.log("Banner Added Successfully");
+    }
+    res.redirect("/admin/addbanners");
   } catch (error) {
-      console.log(error.message)
-      res.render("admin/error")
+    console.log(error.message);
+    res.render("admin/error");
   }
-}
+};
 
-const removeBanner=async(req,res)=>{
+const activateBanner = async (req, res) => {
   try {
-      let id = req.params.id
-      let deleteBanner = await Banner.findByIdAndDelete(id)
-      if(deleteBanner){
-          console.log("Banner Deleted")
-      }
-      res.redirect('/admin/addbanners')
+    let id = req.params.id;
+    await Banner.updateMany({}, { $set: { activate: false } });
+    let activateBanner = await Banner.findByIdAndUpdate(id, { activate: true });
+    if (activateBanner) {
+      console.log("Activated Succesfully");
+    }
+    res.redirect("/admin/addbanners");
   } catch (error) {
-      console.log(error.message)
+    console.log(error.message);
+    res.render("admin/error");
   }
-}
+};
+
+const removeBanner = async (req, res) => {
+  try {
+    let id = req.params.id;
+    let deleteBanner = await Banner.findByIdAndDelete(id);
+    if (deleteBanner) {
+      console.log("Banner Deleted");
+    }
+    res.redirect("/admin/addbanners");
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
 const ordersPage = async (req, res) => {
   try {
@@ -411,7 +402,6 @@ const ordersPage = async (req, res) => {
         day: "numeric",
       })
     );
-    
 
     res.render("admin/adminorders", { order });
   } catch (error) {
@@ -423,13 +413,11 @@ const ordersPage = async (req, res) => {
 const viewOrder = async (req, res) => {
   try {
     const orderid = req.query.id;
-    
 
-   
     const order = await ordermodel
       .findOne({ _id: orderid })
       .populate("orderItems.product");
-    
+
     const orderDetails = order.orderItems.map((data) => {
       return {
         name: data.product.name,
@@ -441,7 +429,6 @@ const viewOrder = async (req, res) => {
       };
     });
 
-    
     res.render("admin/vieworder", {
       orderDetails,
       total: order.total,
@@ -462,7 +449,6 @@ const viewOrder = async (req, res) => {
 
 const editStatus = async (req, res) => {
   try {
-    
     const status = req.body.statusSelect;
     if (status == "delivered") {
       const date = Date.now();
@@ -484,7 +470,7 @@ const editStatus = async (req, res) => {
       );
       const order1 = await ordermodel.findOne({ _id: req.body.orderid });
       const user = await usermodel.findOne({ _id: order1.userid });
-      
+
       const walletbal = order1.total + user.wallet;
       await usermodel.updateOne(
         { _id: order1.userid },
@@ -519,7 +505,7 @@ const editStatus = async (req, res) => {
 const getCoupenPage = async (req, res) => {
   try {
     const coupen = await coupenmodel.find({}).lean().exec();
-    
+
     res.render("admin/admincoupen", {
       coupen,
       coupen1: encodeURIComponent(JSON.stringify(coupen)),
@@ -542,11 +528,9 @@ const addCoupon = async (req, res) => {
     const savedCoupon = await newCoupon.save();
     if (savedCoupon) {
       res.redirect("/admin/coupenPage");
-      
     } else {
       res.send("Error while saving the coupon");
     }
-    
   } catch (error) {
     console.log(error.message);
     res.render("admin/error");
@@ -555,7 +539,6 @@ const addCoupon = async (req, res) => {
 
 const removeCoupen = async (req, res) => {
   try {
-    
     const remove = await coupenmodel.findByIdAndRemove({ _id: req.query.id });
     if (remove) {
       res.redirect("/admin/coupenPage");
@@ -598,7 +581,6 @@ const salesReport = async (req, res) => {
     ]);
     const doc = new PDFDocument();
     const salestotal = totalSales[0].totalSum;
-    
 
     // Pipe the document output to a file or HTTP response
     doc.pipe(fs.createWriteStream("output.pdf"));
@@ -731,7 +713,6 @@ const getSalesToday = async (req, res) => {
       999
     );
 
-    
     const order = await ordermodel.aggregate([
       {
         $match: {
@@ -764,7 +745,6 @@ const getSalesToday = async (req, res) => {
       },
     ]);
 
-    
     if (order) {
       res.render("admin/adminSales", { order, total });
     } else {
@@ -778,7 +758,7 @@ const getSalesToday = async (req, res) => {
 
 const getWeekSales = async (req, res) => {
   try {
-    console.log('haai')
+    console.log("haai");
     const currentDate = new Date();
 
     // Calculate the start and end dates of the current week
@@ -954,7 +934,7 @@ const salesWithDate = async (req, res) => {
     const toDate = new Date(req.body.toDate);
     fromDate.setHours(0, 0, 0, 0); // Set time to 00:00:00.000
     toDate.setHours(23, 59, 59, 999);
-    
+
     const order = await ordermodel.aggregate([
       {
         $match: {
@@ -1005,7 +985,7 @@ const downloadSalesReport = async (req, res) => {
         bold: "Helvetica-Bold",
         italics: "Helvetica-Oblique",
         bolditalics: "Helvetica-BoldOblique",
-      }
+      },
     });
 
     const order = await ordermodel
@@ -1013,22 +993,21 @@ const downloadSalesReport = async (req, res) => {
       .lean()
       .exec();
 
-      const totalAmount=await ordermodel.aggregate([
-        {
-          $match:{
-            status:{$nin:['return','returned','cancelled']}
-          }
+    const totalAmount = await ordermodel.aggregate([
+      {
+        $match: {
+          status: { $nin: ["return", "returned", "cancelled"] },
         },
-        {
-          $group:{
-            _id:null,
-            totalAmount:{$sum:'$total'}
-          }
-        }
-      ])
+      },
+      {
+        $group: {
+          _id: null,
+          totalAmount: { $sum: "$total" },
+        },
+      },
+    ]);
 
-
-    const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    const dateOptions = { year: "numeric", month: "long", day: "numeric" };
 
     // Create document definition
     const docDefinition = {
@@ -1048,10 +1027,10 @@ const downloadSalesReport = async (req, res) => {
           fontSize: 12,
           alignment: "center",
         },
-        total:{
+        total: {
           fontSize: 18,
           alignment: "center",
-        }
+        },
       },
     };
 
@@ -1062,7 +1041,10 @@ const downloadSalesReport = async (req, res) => {
 
     for (let i = 0; i < order.length; i++) {
       const data = order[i];
-      const formattedDate = new Intl.DateTimeFormat("en-US", dateOptions).format(new Date(data.dateOrdered));
+      const formattedDate = new Intl.DateTimeFormat(
+        "en-US",
+        dateOptions
+      ).format(new Date(data.dateOrdered));
       tableBody.push([
         (i + 1).toString(), // Index value
         formattedDate,
@@ -1078,10 +1060,9 @@ const downloadSalesReport = async (req, res) => {
         widths: ["auto", "auto", "auto", "auto", "auto", "auto"],
         headerRows: 1,
         body: tableBody,
-       
       },
     };
-    
+
     // Add the table to the document definition
     docDefinition.content.push(table);
     docDefinition.content.push([
@@ -1094,12 +1075,10 @@ const downloadSalesReport = async (req, res) => {
     // Pipe the PDF document to a write stream
     pdfDoc.pipe(writeStream);
 
-    
     // Finalize the PDF and end the stream
     pdfDoc.end();
 
     writeStream.on("finish", () => {
-      
       res.download("order.pdf", "order.pdf");
     });
   } catch (error) {
@@ -1108,10 +1087,52 @@ const downloadSalesReport = async (req, res) => {
   }
 };
 
+const getMessage = async (req, res) => {
+  try {
+    const messages = await feedbackModel
+      .find({})
+      .populate("userid")
+      .sort({timeOfsent: -1})
+      .lean()
+      .exec();
+
+    if (messages && messages.length > 0) {
+      const userWise = messages.map((data) => {
+        if (data.userid) {
+          return {
+            messageid:data._id,
+            id: data.userid._id,
+            name: data.userid.name,
+            message: data.feedback,
+            date: data.timeOfsent,
+            isRead: data.isRead,
+          };
+        }
+      });
+
+      res.render("admin/messages", { userWise });
+    } else {
+      res.render("admin/messages");
+    }
+  } catch (error) {
+    console.log(error.message);
+    res.render("admin/error");
+  }
+};
 
 
-
-
+const messageStatus = async (req, res) => {
+  try {
+    console.log(req.query.id, "id is here");
+    const message = await feedbackModel.updateOne(
+      { _id: req.query.id },
+      { $set: { isRead: true } }
+    );
+  } catch (error) {
+    console.log(error.message);
+    res.render("admin/error");
+  }
+};
 
 module.exports = {
   adminlogin,
@@ -1145,4 +1166,7 @@ module.exports = {
   bannerImage,
   activateBanner,
   removeBanner,
+  getMessage,
+
+  messageStatus,
 };

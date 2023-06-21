@@ -13,6 +13,7 @@ const { encode } = require("punycode");
 const whishlistmodel = require("../models/whishlistmodel");
 const dotenv = require("dotenv").config();
 const Banner = require("../models/bannermodel");
+const feedbackmodel=require('../models/feedbackmode')
 
 const states = [
   "Andhra Pradesh",
@@ -735,6 +736,21 @@ const getOrderDate = async (req, res) => {
   }
 };
 
+const addMessage=async(req,res)=>{
+  try{
+   const feedbacknew=new feedbackmodel({
+      userid:req.session.userid,
+      feedback:req.body.feedback,
+      timeOfsent:Date.now()
+   })
+   await feedbacknew.save()
+   res.redirect('/getorders')
+  }catch(error){
+    console.log(error.message)
+    res.render('user/error')
+  }
+}
+
 //cart
 
 const getCart = async (req, res) => {
@@ -1218,6 +1234,7 @@ module.exports = {
   cancelOrder,
   returnOrder,
   getOrderDate,
+  addMessage,
   razorPay,
   verifyRazorpay,
   sweetalert,

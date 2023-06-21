@@ -120,9 +120,10 @@
         }
 
         @media (max-width: 576px) {
-            th{
+            th {
                 display: none;
             }
+
             .cart_inner .table tbody tr.cardDataClass {
                 display: flex;
                 flex-direction: column;
@@ -159,13 +160,17 @@
 <body>
     <div id="preloader"></div>
     {{>userheader1}}
-    <div style="height: 29vh;"></div>
+    <div style="height: 20vh;"></div>
     {{#if orderDetails}}
 
     <section class="cart_area">
         <div class="container">
             <h2>{{message}}</h2>
             <div class="cart_inner">
+                <a class="btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModalCenter"
+                    style="float: right;background:linear-gradient(90deg, rgb(255, 0, 76) 0%, rgb(125, 164, 248) 100%) ;color: rgb(255, 255, 255);">leave
+                    you feedback
+                </a>
                 <div class="table-responsive">
                     <table class="table" id="productsTable">
                         <thead>
@@ -249,6 +254,38 @@
     </div>
     {{/if}}
 
+
+    <div class="modal " tabindex="-1" role="dialog" id="exampleModalCenter">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header"
+                    style="background:linear-gradient(90deg, rgba(10, 13, 202, 0.842) 0%, rgb(125, 164, 248) 100%) ;color: #f8f9fa;">
+                    <h5 class="modal-title" style="color: #ffffff;">Leave your feedback</h5>
+                    <button type="button" class="close btn btn " style="color: #f8f9fa;" data-bs-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="/addMessage" method="post">
+                    <div class="modal-body" style="background-color: rgb(231, 231, 231);">
+                        <p style="font-size: small;color: rgb(46, 46, 46);"><i>We value you, our valued customer, and we value your feedback. Your opinion matters to us, as
+                            it helps us improve and serve you better</i> </p>
+                        <div class="form-group">
+
+                            <textarea name="feedback" id="editDescription" cols="30" rows="3" name="description"
+                                placeholder="feedback"></textarea>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer" style="background-color: rgb(248, 248, 248);">
+                        <button type="submit" class="btn btn-primary">Add</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+              
+        </div>
+    </div>
 
     {{>userfooter}}
 
