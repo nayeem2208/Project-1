@@ -29,8 +29,8 @@
     <link rel="stylesheet" href="/public/css/nouislider.min.css">
     <link rel="stylesheet" href="/public/css/bootstrap.css">
     <link rel="stylesheet" href="/public/css/main.css">
-     <style>
-         #preloader {
+    <style>
+        #preloader {
             background: #ffffff url(/public/images/c1bcd8a8c945b53da6b29f10a2a553c0.gif) no-repeat center center;
             background-size: 30%;
             height: 100vh;
@@ -38,17 +38,34 @@
             position: fixed;
             z-index: 100;
         }
+
         @media (max-width: 768px) {
-          .smallhide{
-            display: none;
-          }
-          .imagesmallview{
-            width:11vh ;
-          }
-          #smalla{
-            font-size: xx-small;
-          }
+            .smallhide {
+                display: none;
+            }
+
+            .imagesmallview {
+                width: 11vh;
+            }
+
+            #smalla {
+                font-size: xx-small;
+            }
+
+            .align-middle {
+                font-size:xx-small ;
+            }
+            .totalPriceClass{
+                font-size: small;
+            }
            
+
+
+        }
+
+        .align-middle {
+            margin-top: 5vh;
+            vertical-align: middle !important;
         }
     </style>
 </head>
@@ -78,7 +95,7 @@
         <h1 class="mt-5">{{message}}</h1>
     </div>
     <!--================Cart Area =================-->
-                    {{#if products}}
+    {{#if products}}
     <section class="cart_area">
         <div class="container">
             <div class="cart_inner">
@@ -89,7 +106,7 @@
                                 <th scope="col">Product</th>
                                 <th scope="col" class="smallhide">Price</th>
                                 <th scope="col" class="smallhide">Size</th>
-                                <th scope="col" >Quantity</th>
+                                <th scope="col">Quantity</th>
                                 <th scope="col">Total</th>
                                 <th scope="col" class="smallhide"></th>
 
@@ -120,7 +137,7 @@
                                     <p style="color: black; margin-bottom: 0;" class="smallhide">Size:{{this.size}}</p>
                                 </td>
                                 <td>
-                                    <div class="d-flex">
+                                    <div class="d-flex align-middle">
                                         <button class="btn btn-link px-2"
                                             onclick="this.parentNode.querySelector('input[type=number]').stepDown();this.parentNode.querySelector('.quantityInput').dispatchEvent(new CustomEvent('change'));">
                                             <i class="fas fa-minus"></i>
@@ -135,13 +152,15 @@
                                         <!-- QUANTITY -->
                                         <input type="number" style="width: 10%;appearance: textfield;min-width: 30px;"
                                             name="quantity" id="" class="quantityInput" value="{{this.quantity}}"
-                                            min="1">
+                                            min="1" max="{{this.stock}}">
 
                                         <button class="btn btn-link px-2"
                                             onclick="this.parentNode.querySelector('input[type=number]').stepUp();this.parentNode.querySelector('.quantityInput').dispatchEvent(new CustomEvent('change'));">
                                             <i class="fas fa-plus"></i>
                                         </button>
+
                                     </div>
+                                    <p style="font-size: x-small;">Available Stock:{{this.stock}}</p>
                                 </td>
                                 <td>
                                     <h5 class="price"><span class="totalPriceClass">{{this.total}}</span></h5>
@@ -162,13 +181,13 @@
                                 <td class="smallhide">
                                 </td>
                                 <tdclass="smallhide">
-                                </td>
-                                <td>
-                                    <h5>Subtotal</h5>
-                                </td>
-                                <td>
-                                    <h5 style="text-align: right;">₹<span id="subtotal">{{subtotal}}</span></h5>
-                                </td>
+                                    </td>
+                                    <td>
+                                        <h5>Subtotal</h5>
+                                    </td>
+                                    <td>
+                                        <h5 style="text-align: right;">₹<span id="subtotal">{{subtotal}}</span></h5>
+                                    </td>
                             </tr>
                             <tr class="shipping_area">
                                 <td class="smallhide">
@@ -178,23 +197,23 @@
                                 <td class="smallhide">
                                 </td>
                                 <tdclass="smallhide">
-                                </td>
-                                <td>
-                                    <h5>Shipping</h5>
-                                </td>
-                                <td>
-                                    <div class="shipping_box">
-                                        <h5>₹<span id="shipping-price">{{shipping}}</span></h5>
-                                        {{!-- <p style="color: black;" id="shipping-price">₹{{shipping}}</p> --}}
-                                        {{!-- <li><a href="#">Free Shipping</a></li>
-                                        <li><a href="#">Flat Rate: $10.00</a></li>
-                                        <li class="active"><a href="#">Local Delivery: $2.00</a></li> --}}
+                                    </td>
+                                    <td>
+                                        <h5>Shipping</h5>
+                                    </td>
+                                    <td>
+                                        <div class="shipping_box">
+                                            <h5>₹<span id="shipping-price">{{shipping}}</span></h5>
+                                            {{!-- <p style="color: black;" id="shipping-price">₹{{shipping}}</p> --}}
+                                            {{!-- <li><a href="#">Free Shipping</a></li>
+                                            <li><a href="#">Flat Rate: $10.00</a></li>
+                                            <li class="active"><a href="#">Local Delivery: $2.00</a></li> --}}
 
 
 
 
-                                    </div>
-                                </td>
+                                        </div>
+                                    </td>
                             </tr>
                             <tr class="shipping_area">
                                 <td class="smallhide">
@@ -204,24 +223,24 @@
                                 <td class="smallhide">
                                 </td>
                                 <tdclass="smallhide">
-                                </td>
-                                <td>
-                                    <h5>Grand Total</h5>
-                                </td>
-                                <td>
-                                    <div class="shipping_box">
-                                        <h5>₹<span id="finalAmount">{{finalAmount}}</span></h5>
-                                        {{!-- <p style="color: black;" id="finalAmount">₹{{finalAmount}}</p> --}}
-                                        <input type="text" name="tot" value="{{finalAmount}}" hidden>
-                                        {{!-- <li><a href="#">Free Shipping</a></li>
-                                        <li><a href="#">Flat Rate: $10.00</a></li>
-                                        <li class="active"><a href="#">Local Delivery: $2.00</a></li> --}}
+                                    </td>
+                                    <td>
+                                        <h5>Grand Total</h5>
+                                    </td>
+                                    <td>
+                                        <div class="shipping_box">
+                                            <h5>₹<span id="finalAmount">{{finalAmount}}</span></h5>
+                                            {{!-- <p style="color: black;" id="finalAmount">₹{{finalAmount}}</p> --}}
+                                            <input type="text" name="tot" value="{{finalAmount}}" hidden>
+                                            {{!-- <li><a href="#">Free Shipping</a></li>
+                                            <li><a href="#">Flat Rate: $10.00</a></li>
+                                            <li class="active"><a href="#">Local Delivery: $2.00</a></li> --}}
 
 
 
 
-                                    </div>
-                                </td>
+                                        </div>
+                                    </td>
                             </tr>
                             <tr class="out_button_area">
                                 <td>
@@ -255,9 +274,9 @@
             </div>
         </div>
     </section>
-                    {{else}}
-                    <img src="/public/images/storytelling_assets_2_new_thumbnail.gif" style="height: 45vh;" class="ms-5" alt="">
-                    {{/if}}
+    {{else}}
+    <img src="/public/images/storytelling_assets_2_new_thumbnail.gif" style="height: 45vh;" class="ms-5" alt="">
+    {{/if}}
     <!--================End Cart Area =================-->
 
     <!-- start footer Area -->
@@ -270,6 +289,7 @@
             const subtotal = document.getElementById('subtotal');
             const shippingPriceEl = document.getElementById('shipping-price');
             const cardDataArray = Array.from(document.getElementsByClassName('cardDataClass'));
+
             console.log('haai')
             cardDataArray.map(cardData => {
                 const quantityInput = cardData.querySelector('.quantityInput');

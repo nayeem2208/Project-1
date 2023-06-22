@@ -324,11 +324,13 @@ const productView = async (req, res) => {
   try {
     const product1 = req.query.id;
     const product = await productmodel.findById(product1);
-
+    const stock=product.stock
+    
     res.render("user/productview", {
       product,
       product_id: product1,
       initial: product.images[0],
+      stock,
     });
   } catch (error) {
     console.log(error.message);
@@ -779,6 +781,7 @@ const getCart = async (req, res) => {
           quantity: product.quantity,
           size: product.size,
           total,
+          stock:product.productid.stock
         };
       });
 
@@ -788,13 +791,14 @@ const getCart = async (req, res) => {
       );
 
       const finalAmount = total + 90;
-
+        const allProducts=await productmodel.find({}).lean()
       res.render("user/ucart", {
         products,
         total,
         subtotal: total,
         shipping: 90,
         finalAmount,
+        productdetails:JSON.stringify(allProducts)
       });
       // res.send('H ')
     } else {
@@ -1176,10 +1180,19 @@ const checkOutpage = async (req, res) => {
     for (let i = 0; i < savedOrder.orderItems.length; i++) {}
 
     if (savedOrder) {
-      // setTimeout(() => {
-      //   res.redirect("/getorders");
-      // }, 2000);
-      // res.json({success:true})
+      cart.product.forEach(async (product) => {
+        const productId = product.productid;
+        const quantity = product.quantity;
+
+        // Find the product by ID
+        const foundProduct = await productmodel.findById(productId);
+    
+        // Calculate the new stock count
+        const newStock = parseInt(foundProduct.stock) - parseInt(quantity);
+
+        // Update the stock count in the database
+        await productmodel.findByIdAndUpdate(productId, { stock: newStock });
+    })
       res.render("user/sweetalert");
 
       await cartmodel.findOneAndRemove({ userid: req.session.userid });

@@ -43,93 +43,42 @@ const razorPayy = async (req, res) => {
     });
   } catch (error) {
     console.log(error.message);
-    res.render('user/error')
+    res.render("user/error");
   }
 };
 
 const paymentDone = async (req, res) => {
- 
   try {
-      const cart = await cartmodel
-          .findOne({ userid: req.session.userid })
-          .populate("product.productid")
-          .lean()
-          .exec();
-
-      const productIds = cart.product.map((item) => ({
-          product: item.productid._id,
-          quantity: item.quantity,
-          size: item.size,
-      }));
-
-      const user = await usermodel.findOne({ _id: req.session.userid });
-      const address = {
-          houseName: req.body.houseName,
-          landmark: req.body.landMark,
-          location: req.body.location,
-          district: req.body.district,
-          state: req.body.state,
-          country: req.body.country,
-          pincode: req.body.zip,
-      };
-
-      const newOrder = new ordermodel({
-          userid: req.session.userid,
-          username: req.body.name,
-          email: req.body.email,
-          phone: req.body.phone,
-          landPhone: req.body.landline,
-          address: {
-              houseName: req.body.houseName,
-              landmark: req.body.landMark,
-              location: req.body.location,
-              district: req.body.district,
-              state: req.body.state,
-              country: req.body.country,
-              pincode: req.body.zip,
-          },
-          total: req.body.total,
-          paymentmethord: req.body.typeofpayment,
-          orderItems: productIds,
-          message: req.body.message,
-          dateOrdered: Date.now(),
-      });
-
-      const savedOrder = await newOrder.save();
-
-      if (savedOrder) {
-          
-          // res.render('user/sweetalert')
-          res.send({isOk: true, message: ''});
-          await cartmodel.findOneAndRemove({ userid: req.session.userid });
-      } else {
-          res.send({isOk: false, message: "Error while placing the order"});
-      }
-  } catch (error) {
-      console.log(error.message);
-      res.render('user/error')
-  }
-};
-
-const walletCheckout=async(req,res)=>{
-  
-  try {
-    
     const cart = await cartmodel
-        .findOne({ userid: req.session.userid })
-        .populate("product.productid")
-        .lean()
-        .exec();
+      .findOne({ userid: req.session.userid })
+      .populate("product.productid")
+      .lean()
+      .exec();
 
     const productIds = cart.product.map((item) => ({
-        product: item.productid._id,
-        quantity: item.quantity,
-        size: item.size,
+      product: item.productid._id,
+      quantity: item.quantity,
+      size: item.size,
     }));
 
     const user = await usermodel.findOne({ _id: req.session.userid });
-    const walletbalance=user.wallet-req.body.total
     const address = {
+      houseName: req.body.houseName,
+      landmark: req.body.landMark,
+      location: req.body.location,
+      district: req.body.district,
+      state: req.body.state,
+      country: req.body.country,
+      pincode: req.body.zip,
+    };
+
+    const newOrder = new ordermodel({
+      userid: req.session.userid,
+      username: req.body.name,
+      email: req.body.email,
+      phone: req.body.phone,
+      landPhone: req.body.landline,
+      address: {
         houseName: req.body.houseName,
         landmark: req.body.landMark,
         location: req.body.location,
@@ -137,52 +86,130 @@ const walletCheckout=async(req,res)=>{
         state: req.body.state,
         country: req.body.country,
         pincode: req.body.zip,
-    };
-
-    const newOrder = new ordermodel({
-        userid: req.session.userid,
-        username: req.body.name,
-        email: req.body.email,
-        phone: req.body.phone,
-        landPhone: req.body.landline,
-        address: {
-            houseName: req.body.houseName,
-            landmark: req.body.landMark,
-            location: req.body.location,
-            district: req.body.district,
-            state: req.body.state,
-            country: req.body.country,
-            pincode: req.body.zip,
-        },
-        total: req.body.total,
-        paymentmethord: req.body.typeofpayment,
-        orderItems: productIds,
-        message: req.body.message,
-        dateOrdered: Date.now(),
-
+      },
+      total: req.body.total,
+      paymentmethord: req.body.typeofpayment,
+      orderItems: productIds,
+      message: req.body.message,
+      dateOrdered: Date.now(),
     });
 
     const savedOrder = await newOrder.save();
 
-    await usermodel.updateOne({_id:req.session.userid},{$set:{wallet:walletbalance}})
+    if (savedOrder) {
+      let cart = await cartmodel.findOne({ userid: req.session.userid });
+      // Update the stock count of products
+      cart.product.forEach(async (product) => {
+        const productId = product.productid;
+        const quantity = product.quantity;
+
+        // Find the product by ID
+        const foundProduct = await productmodel.findById(productId);
+
+        // Calculate the new stock count
+        const newStock = parseInt(foundProduct.stock) - parseInt(quantity);
+
+        // Update the stock count in the database
+        await productmodel.findByIdAndUpdate(productId, { stock: newStock });
+      });
+      await cartmodel.findOneAndDelete({ userid: req.session.userid });
+
+      res.send({ isOk: true, message: "" });
+      await cartmodel.findOneAndRemove({ userid: req.session.userid });
+    } else {
+      res.send({ isOk: false, message: "Error while placing the order" });
+    }
+  } catch (error) {
+    console.log(error.message);
+    res.render("user/error");
+  }
+};
+
+const walletCheckout = async (req, res) => {
+  try {
+    const cart = await cartmodel
+      .findOne({ userid: req.session.userid })
+      .populate("product.productid")
+      .lean()
+      .exec();
+
+    const productIds = cart.product.map((item) => ({
+      product: item.productid._id,
+      quantity: item.quantity,
+      size: item.size,
+    }));
+
+    const user = await usermodel.findOne({ _id: req.session.userid });
+    const walletbalance = user.wallet - req.body.total;
+    const address = {
+      houseName: req.body.houseName,
+      landmark: req.body.landMark,
+      location: req.body.location,
+      district: req.body.district,
+      state: req.body.state,
+      country: req.body.country,
+      pincode: req.body.zip,
+    };
+
+    const newOrder = new ordermodel({
+      userid: req.session.userid,
+      username: req.body.name,
+      email: req.body.email,
+      phone: req.body.phone,
+      landPhone: req.body.landline,
+      address: {
+        houseName: req.body.houseName,
+        landmark: req.body.landMark,
+        location: req.body.location,
+        district: req.body.district,
+        state: req.body.state,
+        country: req.body.country,
+        pincode: req.body.zip,
+      },
+      total: req.body.total,
+      paymentmethord: req.body.typeofpayment,
+      orderItems: productIds,
+      message: req.body.message,
+      dateOrdered: Date.now(),
+    });
+
+    const savedOrder = await newOrder.save();
+    if (savedOrder) {
+      cart.product.forEach(async (product) => {
+        const productId = product.productid;
+        const quantity = product.quantity;
+
+        // Find the product by ID
+        const foundProduct = await productmodel.findById(productId);
+
+        // Calculate the new stock count
+        const newStock = parseInt(foundProduct.stock) - parseInt(quantity);
+
+        // Update the stock count in the database
+        await productmodel.findByIdAndUpdate(productId, { stock: newStock });
+      });
+    }
+
+    await usermodel.updateOne(
+      { _id: req.session.userid },
+      { $set: { wallet: walletbalance } }
+    );
 
     if (savedOrder) {
-        
-        // res.render('user/sweetalert')
-        res.send({isOk: true, message: ''});
-        await cartmodel.findOneAndRemove({ userid: req.session.userid });
+      // res.render('user/sweetalert')
+      res.send({ isOk: true, message: "" });
+      await cartmodel.findOneAndRemove({ userid: req.session.userid });
     } else {
-        res.send({isOk: false, message: "Error while placing the order"});
+      res.send({ isOk: false, message: "Error while placing the order" });
     }
-} catch (error) {
+  } catch (error) {
     console.log(error.message);
-    res.render('user/error')
-}
-}
-
+    res.render("user/error");
+  }
+};
 
 module.exports = {
   razorPayy,
   paymentDone,
-  walletCheckout
+  walletCheckout,
 };

@@ -54,7 +54,7 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-               overflow: hidden;
+                overflow: hidden;
             }
 
             body {
@@ -116,21 +116,26 @@
             .card_area {
                 margin-top: 20px;
             }
-           .addtocart{
-            font-size: xx-small;
-           }
-            .bigview{
+
+            .addtocart {
+                font-size: xx-small;
+            }
+
+            .bigview {
                 display: none;
             }
-            .productdetails{
+
+            .productdetails {
                 margin-top: -20vh;
             }
         }
-         @media screen and (min-width: 768px) {
-        .smallview{
-            display: none;
+
+        @media screen and (min-width: 768px) {
+            .smallview {
+                display: none;
+            }
         }
-         }
+
         /* Styles for screen widths between 992px and 1199px */
         @media (min-width: 992px) and (max-width: 1199px) {
             .card .col-md-6 {
@@ -198,6 +203,9 @@ background: linear-gradient(to right, #121FCF 0%, #CF1512 100%);
                                     </div>
                                     <p class="about">{{this.description}}</p>
                                     {{/each}}
+                                    {{#unless stock}}
+                                    <h3 style="color: #CF1512;">Out of Stock!!!</h3>
+                                    {{/unless}}
                                 </div>
                                 <div class="sizes mt-5">
                                     <h6 class="text-uppercase">Size</h6>
@@ -227,9 +235,23 @@ background: linear-gradient(to right, #121FCF 0%, #CF1512 100%);
                                         <input type="hidden" value="{{productDetails._id}}" name="prodId">
                                         <input type="hidden" name="price" id="price">
                                         <div class="cart d-flex mt-4 align-items-center">
-                                            <button type="submit" class="bigview primary-btn btn me-4" style="height: 8vh;"><p class="addtocart"> Add to Cart</p></button>
+                                            {{#if stock}}
+                                            <button type="submit" class="bigview primary-btn btn me-4"
+                                                style="height: 8vh;">
+                                                <p class="addtocart"> Add to Cart</p>
+                                            </button>
+
+                                            <button type="submit" class="smallview  btn btn me-4"><i class="bi bi-bag"
+                                                    style="font-size:4vh;"></i></button>
+                                            {{else}}
+
+                                            <button type="submit" class="bigview primary-btn btn me-4"
+                                                style="height: 8vh;" disabled>
+                                                <p class="addtocart">Add to Cart</p>
+                                            </button>
                                             
-                                            <button type="submit" class="smallview  btn btn me-4"><i class="bi bi-bag" style="font-size:4vh;"></i></button>
+
+                                            {{/if}}
                                             {{!-- <a href="/addtocart?proId={{productDetails._id}}"><button
                                                     class="btn btn-danger text-uppercase mr-2 px-4">Add to
                                                     cart</button></a> --}}

@@ -239,3 +239,95 @@
                                                 // Handle any errors
                                                 console.error('Error:', error);
                                             });
+
+
+
+
+                                             <script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const finalAmount = document.getElementById('finalAmount');
+            const subtotal = document.getElementById('subtotal');
+            const shippingPriceEl = document.getElementById('shipping-price');
+            const cardDataArray = Array.from(document.getElementsByClassName('cardDataClass'));
+            const productDetailsInput = document.getElementById('productDetails');
+            const productDetails = JSON.parse(productDetailsInput.value);
+            console.log(productDetails)
+            cardDataArray.map(cardData => {
+                const quantityInput = cardData.querySelector('.quantityInput');
+                const originalPrice = cardData.querySelector('.originalPriceClass');
+                const totalPriceEl = cardData.querySelector('.totalPriceClass');
+
+                quantityInput.addEventListener('change', () => {
+                    let prodid=cardData.querySelectorAll('.prod_id_class').innerText
+                    console.log(prodid,'jjjj')
+                    const totalPrice = quantityInput.value * originalPrice.innerText;
+                    totalPriceEl.innerText = totalPrice.toString();
+                    totalPriceEl.dispatchEvent(new CustomEvent('TotalPriceChanged'));
+                    sendCartUpdateRequest();
+                })
+
+                totalPriceEl.addEventListener('TotalPriceChanged', () => {
+                    const sum = cardDataArray.reduce((sum, cardData) => {
+                        return sum + Number(cardData.querySelector('.totalPriceClass').innerText);
+                    }, 0);
+                    subtotal.innerText = sum.toString();
+                    subtotal.dispatchEvent(new CustomEvent('SubtotalChanged'));
+                });
+
+            });
+
+            subtotal.addEventListener('SubtotalChanged', () => {
+                if (Number(subtotal.innerText) === 0) {
+                    shippingPriceEl.innerText = 0;
+                } else {
+                    shippingPriceEl.innerText = 90;
+                }
+                finalAmount.innerText = (Number(subtotal.innerText) + Number(shippingPriceEl.innerText)).toString();
+            });
+
+            async function sendCartUpdateRequest() {
+                console.log('Hahahdhha')
+                const products = cardDataArray.map(cardData => {
+                    const productid = cardData.querySelector('.product_id').innerText;
+                    const quantity = Number(cardData.querySelector('.quantityInput').value);
+                    const size = cardData.querySelector('.sizeClass').innerText;
+                    return ({
+                        productid,
+                        quantity,
+                        size,
+                        finalAmount: Number(finalAmount.innerText)
+                    })
+                });
+
+                const updatedCartData = { products };
+                console.log(JSON.stringify(updatedCartData, null, 2))
+
+                try {
+                    const response = await fetch('/cart/update', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(updatedCartData),
+                    });
+
+                    const resBody = await response.text();
+                    console.info(resBody);
+                } catch (err) {
+                    console.error(err);
+                }
+            }
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            checkoutBtn.addEventListener('click', async () => {
+                calculateCartTotal();
+                sendCartUpdateRequest();
+                const totalAmount = Number(finalAmount.innerText);
+                const checkoutURL = `/checkout?total=${totalAmount}`;
+                window.location.href = checkoutURL;
+            });
+
+
+
+        });
+    </script>

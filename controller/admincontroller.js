@@ -221,8 +221,8 @@ const adminhomePage = async (req, res) => {
     res.render("admin/adminhome", {
       totaluser,
       totalSales1,
-      sales: encodeURIComponent(JSON.stringify(salesbymonth)),
-      payment: encodeURIComponent(JSON.stringify(salespayment)),
+        sales: encodeURIComponent(JSON.stringify(salesbymonth)),
+        payment: encodeURIComponent(JSON.stringify(salespayment)),
       totalstock: totalstock[0],
       currentyear: yearSales[0],
       previousYear: yearSales[1],
