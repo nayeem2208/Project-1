@@ -140,6 +140,50 @@
   </div>
 
   {{!-- //editmodal --}}
+
+  <div class="modal" tabindex="-1" role="dialog" id="editModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #393a3a;color: #f8f9fa;">
+          <h5 class="modal-title">Add Coupen</h5>
+          <button type="button" class="close btn btn " style="color: #f8f9fa;"  data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="/admin/addCoupon" method="post">
+          <div class="modal-body" style="background-color: rgb(107, 103, 103);">
+            <div class="form-group">
+              {{!-- <label for="categoryInput" class="my-2">Coupon:</label> --}}
+              <input type="text" class="form-control form-control-sm my-2" id="editCoupenname" name="couponName"
+                placeholder="Coupon Name">
+            </div>
+            <div class="form-group">
+              {{!-- <label for="categoryInput" class="my-2">Discount:</label>
+              <input type="text" class="form-control form-control-sm my-2" id="categoryInput" name="category"
+                placeholder="Enter Description"> --}}
+              <textarea name="description" id="editDescription" cols="30" rows="3" name="description"
+                placeholder="Description"></textarea>
+            </div>
+            <div class="form-group">
+              {{!-- <label for="categoryInput" class="my-2">Description:</label> --}}
+              <input type="text" class="form-control form-control-sm my-2" id="editCoupenamount" name="amount"
+                placeholder="Discount amount">
+            </div>
+            <div class="form-group">
+              {{!-- <label for="categoryInput" class="my-2">Description:</label> --}}
+              <input type="date" class="form-control form-control-sm my-2" id="editExpiry" name="expiry"
+                placeholder="Expiry Date">
+            </div>
+          </div>
+          <div class="modal-footer" style="background-color: rgb(107, 103, 103);">
+            <button type="submit" class="btn btn-primary" style="font-size: small;">Add</button>
+            <button type="button" class="btn btn-secondary" style="font-size: small;" data-bs-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+        
+    </div>
+  </div>
   
   {{> adminfooter}}
   <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
@@ -183,6 +227,26 @@
     });
   });
 </script>
+<script>
+  function formatDate1(dateString) {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    let month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  // Get the expiryDate value from the input field with ID 'editExpiry'
+  const expiryDate = document.getElementById('editExpiry').value;
+
+  // Format the expiryDate using the formatDate1 function
+  const formattedDate = formatDate1(expiryDate);
+
+  // Set the formatted date as the value of the input field
+  document.getElementById('editExpiry').value = formattedDate;
+</script>
+
+
 
 </body>
 

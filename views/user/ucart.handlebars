@@ -38,6 +38,18 @@
             position: fixed;
             z-index: 100;
         }
+        @media (max-width: 768px) {
+          .smallhide{
+            display: none;
+          }
+          .imagesmallview{
+            width:11vh ;
+          }
+          #smalla{
+            font-size: xx-small;
+          }
+           
+        }
     </style>
 </head>
 
@@ -75,11 +87,11 @@
                         <thead>
                             <tr>
                                 <th scope="col">Product</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Size</th>
-                                <th scope="col">Quantity</th>
+                                <th scope="col" class="smallhide">Price</th>
+                                <th scope="col" class="smallhide">Size</th>
+                                <th scope="col" >Quantity</th>
                                 <th scope="col">Total</th>
-                                <th scope="col"></th>
+                                <th scope="col" class="smallhide"></th>
 
                             </tr>
                         </thead>
@@ -88,7 +100,7 @@
                             <tr class="cardDataClass">
                                 <td>
                                     <div class="media">
-                                        <div class="d-flex">
+                                        <div class="d-flex imagesmallview">
                                             <a href="/loadProductview?id={{this._id}}"><img
                                                     src="/public/images/products/{{this.image}}" style="height: 19vh;"
                                                     alt="{{this.name}}"></a>
@@ -96,16 +108,16 @@
                                         <div class="media-body">
                                             <a href="/loadProductview?id={{this._id}}"
                                                 style="text-decoration:none;color: black;">
-                                                <p>{{this.name}}</p>
+                                                <p class="smallhide">{{this.name}}</p>
                                             </a>
                                         </div>
                                     </div>
                                 </td>
-                                <td>
-                                    <h5>₹{{this.price}}</h5>
+                                <td class="smallhide">
+                                    <h5 class="smallhide">₹{{this.price}}</h5>
                                 </td>
-                                <td>
-                                    <p style="color: black; margin-bottom: 0;">Size:{{this.size}}</p>
+                                <td class="smallhide">
+                                    <p style="color: black; margin-bottom: 0;" class="smallhide">Size:{{this.size}}</p>
                                 </td>
                                 <td>
                                     <div class="d-flex">
@@ -137,19 +149,19 @@
                                 <td>
                                     <a onclick="confirmRemove('{{this._id}}','{{this.size}}')"
                                         style="background:linear-gradient(90deg, rgba(173, 17, 155, 0.842) 0%, rgb(50, 0, 233) 100%) ;color: rgb(255, 255, 255);"
-                                        class="btn btn btn-sm">Remove</a>
+                                        class="btn btn btn-sm" id="smalla">Remove</a>
                                 </td>
                             </tr>
                             {{/each}}
 
                             <tr>
-                                <td>
+                                <td class="smallhide">
                                 </td>
-                                <td>
+                                <td class="smallhide">
                                 </td>
-                                <td>
+                                <td class="smallhide">
                                 </td>
-                                <td>
+                                <tdclass="smallhide">
                                 </td>
                                 <td>
                                     <h5>Subtotal</h5>
@@ -159,13 +171,13 @@
                                 </td>
                             </tr>
                             <tr class="shipping_area">
-                                <td>
+                                <td class="smallhide">
                                 </td>
-                                <td>
+                                <td class="smallhide">
                                 </td>
-                                <td>
+                                <td class="smallhide">
                                 </td>
-                                <td>
+                                <tdclass="smallhide">
                                 </td>
                                 <td>
                                     <h5>Shipping</h5>
@@ -185,13 +197,13 @@
                                 </td>
                             </tr>
                             <tr class="shipping_area">
-                                <td>
+                                <td class="smallhide">
                                 </td>
-                                <td>
+                                <td class="smallhide">
                                 </td>
-                                <td>
+                                <td class="smallhide">
                                 </td>
-                                <td>
+                                <tdclass="smallhide">
                                 </td>
                                 <td>
                                     <h5>Grand Total</h5>
