@@ -265,7 +265,7 @@ const shirtPageLoad = async (req, res) => {
       .find({ category: "shirts", isListed: { $ne: 1 } })
       .lean()
       .exec();
-
+    
     if (products) {
       res.render("user/uProducts", { products });
     }
