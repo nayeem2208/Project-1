@@ -156,7 +156,7 @@
 
 <body>
     <div id="preloader"></div>
-    {{>userheader1}}
+    {{>userheader1 isLogin=isLogin}}
     <div style="height: 14vh;"></div>
     <div class="container-fluid">
         <div class="row d-flex justify-content-center">
@@ -235,30 +235,27 @@ background: linear-gradient(to right, #121FCF 0%, #CF1512 100%);
                                         <input type="hidden" value="{{productDetails._id}}" name="prodId">
                                         <input type="hidden" name="price" id="price">
                                         <div class="cart d-flex mt-4 align-items-center">
+                                            {{#if isLogin}}
                                             {{#if stock}}
                                             <button type="submit" class="bigview primary-btn btn me-4"
                                                 style="height: 8vh;">
-                                                <p class="addtocart"> Add to Cart</p>
+                                                <p class="addtocart">Add to Cart</p>
                                             </button>
 
-                                            <button type="submit" class="smallview  btn btn me-4"><i class="bi bi-bag"
-                                                    style="font-size:4vh;"></i></button>
+                                            <button type="submit" class="smallview btn btn me-4">
+                                                <i class="bi bi-bag" style="font-size:4vh;"></i>
+                                            </button>
                                             {{else}}
-
                                             <button type="submit" class="bigview primary-btn btn me-4"
                                                 style="height: 8vh;" disabled>
                                                 <p class="addtocart">Add to Cart</p>
                                             </button>
-                                            
-
-                                            {{/if}}
-                                            {{!-- <a href="/addtocart?proId={{productDetails._id}}"><button
-                                                    class="btn btn-danger text-uppercase mr-2 px-4">Add to
-                                                    cart</button></a> --}}
-
-
                                             <a onclick="addToWishlist('{{product_id}}')"><i class="bi bi-heart"
                                                     style="font-size:4vh;"></i></a>
+                                                    {{/if}}
+                                            {{else}}
+                                            <h6 style="opacity: 0.5;">Please login to buy the product</h6>
+                                            {{/if}}
 
                                         </div>
                                 </div>

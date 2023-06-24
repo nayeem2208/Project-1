@@ -215,6 +215,7 @@ const loginhelper = async (req, res) => {
             req.session.userid = loginemail._id;
             const id = req.session.userid;
             username = req.session.name;
+            var isLogin = req.session.userid ? true : false
             const products = await productmodel.find({}).lean().exec();
             const banner = await Banner.findOne({ activate: true });
 
@@ -223,6 +224,7 @@ const loginhelper = async (req, res) => {
               username,
               id,
               banners: banner.image,
+              isLogin:isLogin
             });
           }
         }
@@ -251,9 +253,9 @@ const logout = (req, res) => {
 const homeload = async (req, res) => {
   try {
     const id = req.session.userid;
-    
+    var isLogin = req.session.userid ? true : false;
     const banner = await Banner.findOne({ activate: true });
-    res.render("user/home1", {   id, banners: banner.image });
+    res.render("user/home1", {   id, banners: banner.image,isLogin:isLogin });
   } catch (error) {
     console.log(error.message);
     res.render("user/error");
@@ -266,8 +268,10 @@ const shirtPageLoad = async (req, res) => {
       .lean()
       .exec();
     
+    
+      var isLogin = req.session.userid ? true : false
     if (products) {
-      res.render("user/uProducts", { products });
+      res.render("user/uProducts", { products,isLogin:isLogin });
     }
   } catch (error) {
     console.log(error.message);
@@ -281,8 +285,9 @@ const jeansPageLoad = async (req, res) => {
       .find({ category: "jeans", isListed: { $ne: 1 } })
       .lean()
       .exec();
+      var isLogin = req.session.userid ? true : false
     if (products) {
-      res.render("user/uProducts", { products });
+      res.render("user/uProducts", { products ,isLogin:isLogin});
     }
   } catch (error) {
     console.log(error.message);
@@ -296,8 +301,9 @@ const shoesPageLoad = async (req, res) => {
       .find({ category: "shoes", isListed: { $ne: 1 } })
       .lean()
       .exec();
+      var isLogin = req.session.userid ? true : false
     if (products) {
-      res.render("user/uProducts", { products });
+      res.render("user/uProducts", { products ,isLogin:isLogin});
     }
   } catch (error) {
     console.log(error.message);
@@ -311,8 +317,9 @@ const allProductsLoad = async (req, res) => {
       .find({ isListed: { $ne: 1 } })
       .lean()
       .exec();
+      var isLogin = req.session.userid ? true : false
     if (products) {
-      res.render("user/uProducts", { products });
+      res.render("user/uProducts", { products,isLogin:isLogin });
     }
   } catch (error) {
     console.log(error.message);
@@ -325,12 +332,13 @@ const productView = async (req, res) => {
     const product1 = req.query.id;
     const product = await productmodel.findById(product1);
     const stock=product.stock
-    
+    var isLogin = req.session.userid ? true : false
     res.render("user/productview", {
       product,
       product_id: product1,
       initial: product.images[0],
       stock,
+      isLogin:isLogin
     });
   } catch (error) {
     console.log(error.message);
@@ -347,8 +355,9 @@ const usersearch = async (req, res) => {
       .find({ name: { $regex: searchregex }, category: req.body.category })
       .lean()
       .exec();
+      var isLogin = req.session.userid ? true : false
     if (result) {
-      res.render("user/uProducts", { products: result });
+      res.render("user/uProducts", { products: result,isLogin:isLogin });
     } else {
       res.render("user/uProducts", { message: "No results found" });
     }
@@ -375,8 +384,9 @@ const productFilter = async (req, res) => {
         },
       },
     ]);
+    var isLogin = req.session.userid ? true : false
     if (products.length > 0) {
-      res.render("user/uProducts", { products: products });
+      res.render("user/uProducts", { products: products,isLogin:isLogin });
     } else {
       res.render("user/uProducts", { message: "No result found!!!!" });
     }
@@ -405,8 +415,8 @@ const userprofile = async (req, res) => {
         id: data._id,
       };
     });
-
-    res.render("user/userProfile", { user, addressDetails });
+    var isLogin = req.session.userid ? true : false
+    res.render("user/userProfile", { user, addressDetails,isLogin:isLogin });
   } catch (error) {
     console.log(error.message);
     res.render("user/error");
@@ -419,8 +429,9 @@ const geteditprofile = async (req, res) => {
       .findOne({ _id: req.session.userid })
       .lean()
       .exec();
+      var isLogin = req.session.userid ? true : false
     if (user) {
-      res.render("user/edituserdetails", { user });
+      res.render("user/edituserdetails", { user ,isLogin:isLogin});
     }
   } catch (error) {
     console.log(error.message);
@@ -523,7 +534,8 @@ const editdetails = async (req, res) => {
 
 const addAddress = (req, res) => {
   try {
-    res.render("user/address", { states: states, countries: countries });
+    var isLogin = req.session.userid ? true : false
+    res.render("user/address", { states: states, countries: countries,isLogin:isLogin });
   } catch (error) {
     console.log(error.message);
     res.render("user/error");
@@ -603,12 +615,13 @@ const getOrders = async (req, res) => {
 
           };
         });
-
-        res.render("user/order1", { orderDetails });
+        var isLogin = req.session.userid ? true : false
+        res.render("user/order1", { orderDetails,isLogin:isLogin });
       }
     } else {
+      var isLogin = req.session.userid ? true : false
       res.render("user/order1", {
-        message: "You dont have any Orders!!!",
+        message: "You dont have any Orders!!!",isLogin:isLogin
       });
     }
   } catch (error) {
@@ -651,7 +664,7 @@ const orderInfo = async (req, res) => {
     });
 
     let total = orders.total;
-
+    var isLogin = req.session.userid ? true : false
     res.render("user/orderview", {
       orderDetails,
       total,
@@ -664,6 +677,7 @@ const orderInfo = async (req, res) => {
       orderDetails1: encodeURIComponent(JSON.stringify(orderDetails)),
       totalforinvoice: encodeURIComponent(JSON.stringify(total)),
       addressinvoice: encodeURIComponent(JSON.stringify(orders.address)),
+      isLogin:isLogin
     });
   } catch (error) {
     console.log(error.message);
@@ -789,7 +803,7 @@ const getCart = async (req, res) => {
         (sum, product) => sum + Number(product.total),
         0
       );
-
+      var isLogin = req.session.userid ? true : false
       const finalAmount = total + 90;
         const allProducts=await productmodel.find({}).lean()
       res.render("user/ucart", {
@@ -798,11 +812,13 @@ const getCart = async (req, res) => {
         subtotal: total,
         shipping: 90,
         finalAmount,
-        productdetails:JSON.stringify(allProducts)
+        productdetails:JSON.stringify(allProducts),
+        isLogin:isLogin
       });
       // res.send('H ')
     } else {
-      res.render("user/ucart", { message: "Your cart is empty" });
+      var isLogin = req.session.userid ? true : false
+      res.render("user/ucart", { message: "Your cart is empty" ,isLogin:isLogin});
     }
   } catch (error) {
     console.log(error.message);
@@ -812,32 +828,36 @@ const getCart = async (req, res) => {
 
 const addTocart = async (req, res) => {
   try {
-    let proid = req.body.proid;
-    let prosize = req.body.size;
-
-    let cart = await cartmodel.findOne({ userid: req.session.userid });
-
-    if (!cart) {
-      let newCart = new cartmodel({ userid: req.session.userid, product: [] });
-      await newCart.save();
-      cart = newCart;
+    var isLogin = req.session.userid ? true : false
+    if(isLogin==true){
+      let proid = req.body.proid;
+      let prosize = req.body.size;
+  
+      let cart = await cartmodel.findOne({ userid: req.session.userid });
+  
+      if (!cart) {
+        let newCart = new cartmodel({ userid: req.session.userid, product: [] });
+        await newCart.save();
+        cart = newCart;
+      }
+  
+      const existingproductindex = cart?.product.findIndex(
+        (product) => product.productid == proid && product.size == prosize
+      );
+  
+      if (existingproductindex == -1) {
+        cart.product.push({ productid: proid, quantity: 1, size: prosize });
+      } else {
+        cart.product[existingproductindex].quantity += 1;
+        cart.product.size = req.body.size;
+      }
+  
+      await cart.save();
+  
+      // res.redirect("/loadProductview" + "?id=" + proid);
+      res.send({ ok: true });
     }
-
-    const existingproductindex = cart?.product.findIndex(
-      (product) => product.productid == proid && product.size == prosize
-    );
-
-    if (existingproductindex == -1) {
-      cart.product.push({ productid: proid, quantity: 1, size: prosize });
-    } else {
-      cart.product[existingproductindex].quantity += 1;
-      cart.product.size = req.body.size;
-    }
-
-    await cart.save();
-
-    // res.redirect("/loadProductview" + "?id=" + proid);
-    res.send({ ok: true });
+   
   } catch (error) {
     console.log(error.message);
     res.render("user/error");
@@ -861,9 +881,11 @@ const getWishlist = async (req, res) => {
           image: data.productid.images[0],
         };
       });
-      res.render("user/uwishlist", { products });
+      var isLogin = req.session.userid ? true : false
+      res.render("user/uwishlist", { products ,isLogin:isLogin});
     } else {
-      res.render("user/uwishlist");
+      var isLogin = req.session.userid ? true : false
+      res.render("user/uwishlist",{isLogin:isLogin});
     }
   } catch (error) {
     console.log(error.message);

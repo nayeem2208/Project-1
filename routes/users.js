@@ -34,7 +34,9 @@ const upload = multer({ storage: storage });
 
 
 /* GET users listing. */
-router.get('/', middlewarecontroller.userSessionLogin, usercontroller.loginLoad)
+router.get('/', middlewarecontroller.userSessionLogin,usercontroller.homeload)
+// router.get('/', middlewarecontroller.userSessionLogin, usercontroller.loginLoad)
+router.get('/userLogin',usercontroller.loginLoad)
 router.post('/', usercontroller.loginhelper)
 router.get('/signup',middlewarecontroller.userSessionLogout, middlewarecontroller.userSessionLogin, usercontroller.signupLoad)
 router.post('/signup', usercontroller.confirmpassword, usercontroller.signuphelper)
@@ -56,15 +58,15 @@ router.post('/resendotp',middlewarecontroller.userSessionLogout,userOtpLogin.for
 
 // router.get('/resendotp',middlewarecontroller.userSessionLogout,userOtpLogin.resendOtp)
 router.post('/logout',middlewarecontroller.userLoginSession,usercontroller.logout)
-router.get('/getshirtpage',middlewarecontroller.userLoginSession,usercontroller.shirtPageLoad)
-router.get('/homeLoad',middlewarecontroller.userLoginSession,usercontroller.homeload)
-router.get('/getJeanspage',middlewarecontroller.userLoginSession,usercontroller.jeansPageLoad)
-router.get('/getShoespage',middlewarecontroller.userLoginSession,usercontroller.shoesPageLoad)
-router.get('/getallproducts',middlewarecontroller.userLoginSession,usercontroller.allProductsLoad)
-router.get('/loadProductview',middlewarecontroller.userLoginSession,usercontroller.productView)
+router.get('/getshirtpage',usercontroller.shirtPageLoad)
+router.get('/homeLoad',usercontroller.homeload)
+router.get('/getJeanspage',usercontroller.jeansPageLoad)
+router.get('/getShoespage',usercontroller.shoesPageLoad)
+router.get('/getallproducts',usercontroller.allProductsLoad)
+router.get('/loadProductview',usercontroller.productView)
 
-router.post('/searchallproducts',middlewarecontroller.userLoginSession,usercontroller.usersearch)
-router.post('/priceFilter',middlewarecontroller.userLoginSession,usercontroller.productFilter)
+router.post('/searchallproducts',usercontroller.usersearch)
+router.post('/priceFilter',usercontroller.productFilter)
 
 router.get('/userprofile',middlewarecontroller.userLoginSession,usercontroller.userprofile)
 router.get('/editUser',middlewarecontroller.userLoginSession,usercontroller.geteditprofile)

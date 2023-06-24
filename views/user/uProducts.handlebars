@@ -49,7 +49,7 @@
 <body id="category">
 	<div id="preloader"></div>
 	<!-- Start Header Area -->
-	{{>userheader1}}
+	{{>userheader1 isLogin=isLogin}}
 	<!-- End Header Area -->
 
 	<!-- Start Banner Area -->
@@ -162,20 +162,18 @@
 										</div>
 								</a>
 								<div class="prd-bottom ">
-
+									
 									<a href="/loadProductview?id={{this._id}}" class="social-info">
 										<span class="ti-bag"></span>
 										<p class="hover-text">add to bag</p>
 									</a>
-									{{!-- <a onclick="addToWishlist('{{this._id}}')" class="social-info">
-										<span class="lnr lnr-heart"></span>
-										<p class="hover-text">Wishlist</p>
-									</a> --}}
+									
 
 									<a href="/loadProductview?id={{this._id}}" class="social-info">
 										<span class="lnr lnr-move"></span>
 										<p class="hover-text">view more</p>
 									</a>
+									
 								</div>
 							</div>
 						</div>
@@ -195,7 +193,7 @@
 									</div>
 							</a>
 							<div class="prd-bottom ">
-
+							
 								<a href="/loadProductview?id={{this._id}}" class="social-info">
 									<span class="ti-bag" style="opacity: 0.4;"></span>
 									<p class="hover-text" style="opacity: 0.4;">add to bag</p>
@@ -204,11 +202,12 @@
 									<span class="lnr lnr-heart"></span>
 									<p class="hover-text">Wishlist</p>
 								</a> --}}
-
+							
 								<a href="/loadProductview?id={{this._id}}" class="social-info">
 									<span class="lnr lnr-move" style="opacity: 0.4;"></span>
 									<p class="hover-text" style="opacity: 0.4;">view more</p>
 								</a>
+								
 							</div>
 						</div>
 					</div>

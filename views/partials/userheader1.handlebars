@@ -48,6 +48,7 @@
                                 <li class="nav-item"><a class="nav-link" href="/getorders?id={{this._id}}">Orders</a>
                                 </li>
                                 <li class="nav-item">
+                                    {{#if isLogin}}
                                     <form class="form-inline my-2 my-lg-0" method="post" action="/logout">
                                         <button class="btn btn" type="submit"
                                             style="font-family: sans-serif;background-color: rgb(255, 255, 255);"><img
@@ -55,6 +56,13 @@
                                                 style="width: 3.5vh;justify-content: center;" alt=""><span class="ms-2"
                                                 style="color: rgb(13, 13, 161);">Logout</span></button>
                                     </form>
+                                    {{else}}
+
+                                    
+                                        <a href="/userLogin" class="nav-link" style="olor:blue;">Login</a>
+                                
+
+                                    {{/if}}
                                 </li>
                             </ul>
                         </li>
