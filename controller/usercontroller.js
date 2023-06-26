@@ -1049,7 +1049,7 @@ const getCheckOut = async (req, res) => {
     });
     // let address=useraddress.type
     const wallet = user.wallet;
-
+    var isLogin = req.session.userid ? true : false
     res.render("user/ucheckout", {
       user,
       useraddress: encodeURIComponent(JSON.stringify(useraddress)),
@@ -1061,6 +1061,7 @@ const getCheckOut = async (req, res) => {
       key,
       coupen: encodeURIComponent(JSON.stringify(coupen)),
       wallet: encodeURIComponent(JSON.stringify(wallet)),
+      isLogin:isLogin
     });
   } catch (error) {
     console.log(error.message);
@@ -1070,9 +1071,11 @@ const getCheckOut = async (req, res) => {
 
 const addAddressinCheckout = (req, res) => {
   try {
+    var isLogin = req.session.userid ? true : false
     res.render("user/addresscheckout", {
       states: states,
       countries: countries,
+      isLogin:isLogin
     });
   } catch (error) {
     console.log(error.message);
