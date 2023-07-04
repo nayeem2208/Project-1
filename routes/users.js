@@ -34,10 +34,10 @@ const upload = multer({ storage: storage });
 
 
 /* GET users listing. */
-router.get('/', middlewarecontroller.userSessionLogin,usercontroller.homeload)
+router.get('/',usercontroller.homeload)
 // router.get('/', middlewarecontroller.userSessionLogin, usercontroller.loginLoad)
-router.get('/userLogin',usercontroller.loginLoad)
-router.post('/', usercontroller.loginhelper)
+router.get('/userLogin',middlewarecontroller.userSessionLogout,usercontroller.loginLoad)
+router.post('/',middlewarecontroller.userSessionLogout, usercontroller.loginhelper)
 router.get('/signup',middlewarecontroller.userSessionLogout, middlewarecontroller.userSessionLogin, usercontroller.signupLoad)
 router.post('/signup', usercontroller.confirmpassword, usercontroller.signuphelper)
 router.get('/register/verify',middlewarecontroller.userSessionLogout, usercontroller.verifyMail)

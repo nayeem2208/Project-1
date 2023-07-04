@@ -764,7 +764,7 @@ const addMessage=async(req,res)=>{
    await feedbacknew.save()
    res.redirect('/getorders')
   }catch(error){
-    console.log(error.message)
+    console.log(error.message)                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
     res.render('user/error')
   }
 }

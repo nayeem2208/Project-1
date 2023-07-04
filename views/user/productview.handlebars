@@ -245,13 +245,15 @@ background: linear-gradient(to right, #121FCF 0%, #CF1512 100%);
                                             <button type="submit" class="smallview btn btn me-4">
                                                 <i class="bi bi-bag" style="font-size:4vh;"></i>
                                             </button>
+                                             <a onclick="addToWishlist('{{product_id}}')"><i class="bi bi-heart"
+                                                    style="font-size:4vh;"></i></a>
                                             {{else}}
                                             <button type="submit" class="bigview primary-btn btn me-4"
                                                 style="height: 8vh;" disabled>
                                                 <p class="addtocart">Add to Cart</p>
                                             </button>
-                                            <a onclick="addToWishlist('{{product_id}}')"><i class="bi bi-heart"
-                                                    style="font-size:4vh;"></i></a>
+                                            
+                                           
                                                     {{/if}}
                                             {{else}}
                                             <h6 style="opacity: 0.5;">Please login to buy the product</h6>
