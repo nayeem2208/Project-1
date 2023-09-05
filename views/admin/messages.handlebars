@@ -67,19 +67,19 @@
             {{#each userWise}}
             <tr>
               {{#if this.isRead}}
-              <td scope="col">{{inc @index}}</td>
+              <td scope="col" >{{inc @index}}</td>
               <td scope="col">{{this.name}}</td>
               <td scope="col">{{truncateMessage this.message 3}}</td>
               <td scope="col">{{formatDate this.date}}1</td>
-              <td scope="col"><button href="" class="btn btn messagebtn" style="background-color: #ddbd08;color: black;"
+              <td scope="col"><button href="" class="btn btn-warning messagebtn" style="color: black;"
                   data-bs-toggle="modal" data-bs-target="#exampleModalLong"
                   data-message="{{this.message}}">view</button></td>
               {{else}}
-              <td scope="col"><b> {{inc @index}}</b> </td>
-              <td scope="col"><b>{{this.name}}</b> </td>
-              <td scope="col"><b>{{truncateMessage this.message 3}}</b> </td>
-              <td scope="col"><b> {{formatDate this.date}}</b></td>
-              <td scope="col"><button href="" class="btn btn-warning messagebtn" style="color: black;"
+              <td scope="col" style="color: aquamarine;"><b> {{inc @index}}</b> </td>
+              <td scope="col" style="color: aquamarine;"><b>{{this.name}}</b> </td>
+              <td scope="col" style="color: aquamarine;"><b>{{truncateMessage this.message 3}}</b> </td>
+              <td scope="col" style="color: aquamarine;"><b> {{formatDate this.date}}</b></td>
+              <td scope="col"><button href="" class="btn btn-primary messagebtn" 
                   data-bs-toggle="modal" data-bs-target="#exampleModalLong" data-message="{{this.message}}"
                   data-id="{{this.messageid}}">view</button>
                 {{/if}}
