@@ -20,7 +20,7 @@ var adminRouter = require("./routes/admin");
 
 
 const mongoose = require("mongoose");
-mongoose.connect('mongodb+srv://nayeem670:56PmusurFfD4QcpR@cluster0.ihvan4j.mongodb.net/?retryWrites=true&w=majority');
+mongoose.connect('mongodb+srv://nayeem2281998:h3xofV5chQDNHGTm@cluster0.9vxqblt.mongodb.net/?retryWrites=true&w=majority');
 var app = express();
 
 
