@@ -9,7 +9,7 @@ const { RAZORPAY_SECRET } = process.env;
 const RAZORPAY_KEY = process.env.RAZORPAY_KEY;
 
 const razorPayInstance = new Razorpay({
-  key_id: RAZORPAY_KEY,
+  key_id: 'rzp_test_oi94ipZRJidf2Y',
   key_secret: RAZORPAY_SECRET,
 });
 
